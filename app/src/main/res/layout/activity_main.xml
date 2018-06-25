@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.LoginActivity"
+    android:padding="40dp">
+
+    <EditText
+        android:id="@+id/username_ed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:hint="Nazwa Uzytkownika" />
+
+    <EditText
+        android:id="@+id/passowrd_ed"
+        android:layout_below="@id/username_ed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hasło"
+        />
+
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/login_btn"
+        android:layout_below="@id/passowrd_ed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"/>
+
+
+
+</RelativeLayout>
