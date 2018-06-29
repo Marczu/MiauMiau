@@ -35,12 +35,13 @@ class LoginActivity : AppCompatActivity() {
         setupFirebaseAuth()
 
         init()
+
     }
 
     fun init() {
         initWidgets()
         initLogin()
-
+        initRegisterNewUser()
     }
 
     private fun initWidgets() {
@@ -89,6 +90,14 @@ class LoginActivity : AppCompatActivity() {
 
                             }
                         }
+            }
+        }
+    }
+
+    fun initRegisterNewUser(){
+        register_new_user_btn.setOnClickListener {
+            Intent(this@LoginActivity, RegisterActivity::class.java).apply {
+                startActivity(this)
             }
         }
     }
