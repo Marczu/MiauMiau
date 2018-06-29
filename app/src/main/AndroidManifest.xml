@@ -24,7 +24,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".chat_screen.ChatActivity"
+            android:name=".chat.ChatActivity"
             android:label="@string/title_activity_chat"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

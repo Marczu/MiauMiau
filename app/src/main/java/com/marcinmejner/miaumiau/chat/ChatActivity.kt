@@ -1,10 +1,8 @@
-package com.marcinmejner.miaumiau.chat_screen
+package com.marcinmejner.miaumiau.chat
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import com.marcinmejner.miaumiau.R
-import kotlinx.android.synthetic.main.activity_chat.*
 
 class ChatActivity : AppCompatActivity() {
 
