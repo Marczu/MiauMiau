@@ -4,9 +4,9 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class UserAccount(
+        var user_id: String = "",
         var username: String = "",
         var profile_photo: String = "",
-        var user_id: String = "",
         var user_email: String = ""
 
         ) : Parcelable {
