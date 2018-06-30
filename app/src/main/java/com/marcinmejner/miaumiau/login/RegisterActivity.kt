@@ -9,15 +9,16 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.marcinmejner.miaumiau.R
+import com.marcinmejner.miaumiau.models.UserAccount
 import com.marcinmejner.miaumiau.utils.FirebaseFunctions
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
     private val TAG = "RegisterActivity"
 
-    private var email: String? = null
-    private var username:String? = null
-    private var password:String? = null
+    private var email: String? = ""
+    private var username:String? = ""
+    private var password:String? = ""
 
     var context: Context? = null
 
@@ -91,7 +92,7 @@ class RegisterActivity : AppCompatActivity() {
 
                 for (dataSnapshot1 in dataSnapshot.children) {
                     if (dataSnapshot.exists()) {
-                        Log.d(TAG, "checkIfUsernameExists FOUND A MATCH " + dataSnapshot.getValue<User>(User::class.java)!!.getUsername())
+                        Log.d(TAG, "checkIfUsernameExists FOUND A MATCH " + dataSnapshot.getValue<UserAccount>(UserAccount::class.java)!!.username)
                         append = myRef?.push()!!.key.substring(3, 10)
                         Log.d(TAG, "onDataChange: Username already exists, appending random string to name: $append")
                     }
@@ -102,9 +103,9 @@ class RegisterActivity : AppCompatActivity() {
 
                 //adding user to databse
 
-                firebaseFunctions?.addNewUser(email!!, mUsername, "", "", "")
+                firebaseFunctions?.addNewUser(email!!, mUsername, "")
 
-                Toast.makeText(context, "Signup successfull! sending verification email", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Rejestracja udana, email weryfikujący został wysłany", Toast.LENGTH_LONG).show()
                 mAuth?.signOut()
 
             }

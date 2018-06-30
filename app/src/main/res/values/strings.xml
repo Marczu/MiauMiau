@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">MiauMiau</string>
     <string name="title_activity_chat">ChatActivity</string>
+
+
+    <!--Databse fields-->
+    <string name="dbname_users">users</string>
+
+    <string name="field_username">username</string>
+    <string name="field_email">email</string>
+    <string name="field_user_id">user_id</string>
 </resources>

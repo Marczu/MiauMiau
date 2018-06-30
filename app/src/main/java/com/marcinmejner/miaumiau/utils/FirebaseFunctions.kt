@@ -52,7 +52,7 @@ class FirebaseFunctions(val context: Context) {
                         sendVerificationEmail()
 
                         // Sign in success, update UI with the signed-in user's information
-                        userID = mAuth.getCurrentUser()!!.getUid()
+                        userID = mAuth.currentUser!!.uid
                         Log.d(TAG, "createUserWithEmail:success: userID = $userID")
 
 
@@ -66,7 +66,7 @@ class FirebaseFunctions(val context: Context) {
     }
 
     /*Verification by email*/
-    fun sendVerificationEmail() {
+    private fun sendVerificationEmail() {
 
         val user = FirebaseAuth.getInstance().currentUser
         user?.sendEmailVerification()?.addOnCompleteListener { task ->
@@ -81,27 +81,11 @@ class FirebaseFunctions(val context: Context) {
 
     /*Adding new User to database*/
     fun addNewUser(email: String, username: String, profile_photo: String) {
-        val user = UserAccount(userID, 1, email, StringManipulation.condenseUsername(username))
+        val user = UserAccount(userID!!, username, profile_photo, email)
 
-        myRef.child(mContex.getString(R.string.dbname_users))
+        myRef.child(context.getString(R.string.dbname_users))
                 .child(userID)
                 .setValue(user)
-
-        val settings = UserAccount(
-                desctiption,
-                username,
-                0,
-                0,
-                0,
-                profile_photo,
-                StringManipulation.condenseUsername(username),
-                website,
-                userID)
-
-        myRef.child(mContex.getString(R.string.dbname_user_account_settings))
-                .child(userID)
-                .setValue(settings)
-
     }
 
 
