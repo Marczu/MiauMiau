@@ -11,7 +11,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.marcinmejner.miaumiau.R
-import com.marcinmejner.miaumiau.chat.ChatActivity
+import com.marcinmejner.miaumiau.chat.MainChatActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -78,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
                                 val user = mAuth?.currentUser
                                 Log.d(TAG, "initLogin: user to: $user")
 
-                                startActivity(Intent(this@LoginActivity, ChatActivity::class.java))
+                                startActivity(Intent(this@LoginActivity, MainChatActivity::class.java))
                                 finish()
 
 

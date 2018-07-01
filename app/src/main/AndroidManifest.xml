@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login.LoginActivity">
+        <activity android:name=".chat.MainChatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,11 +23,9 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity
-            android:name=".chat.ChatActivity"
-            android:label="@string/title_activity_chat"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".login.RegisterActivity"></activity>
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".login.RegisterActivity" />
+        <activity android:name=".profile.AccountSettingsActivity"></activity>
     </application>
 
 </manifest>

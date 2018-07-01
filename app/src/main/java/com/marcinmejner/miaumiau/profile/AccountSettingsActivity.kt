@@ -1,15 +1,13 @@
-package com.marcinmejner.miaumiau.chat
+package com.marcinmejner.miaumiau.profile
 
-import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
 import com.marcinmejner.miaumiau.R
 
-class ChatActivity : AppCompatActivity() {
+class AccountSettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
-
+        setContentView(R.layout.activity_account_settings)
     }
-
 }
