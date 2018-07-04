@@ -26,10 +26,7 @@
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".login.RegisterActivity" />
         <activity android:name=".profile.AccountSettingsActivity" />
-        <activity
-            android:name=".chat.MainCha"
-            android:label="@string/title_activity_main_cha"
-            android:theme="@style/AppTheme"></activity>
+
     </application>
 
 </manifest>

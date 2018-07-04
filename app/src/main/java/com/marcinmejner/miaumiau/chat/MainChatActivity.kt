@@ -14,8 +14,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.marcinmejner.miaumiau.R
 import com.marcinmejner.miaumiau.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_chat.*
-import kotlinx.android.synthetic.main.activity_main_cha.*
-import kotlinx.android.synthetic.main.app_bar_main_cha.*
+
 import kotlinx.android.synthetic.main.snippet_top_profilebar.*
 
 class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -30,7 +29,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-        setSupportActionBar(toolbar)
 
         setupFirebaseAuth()
         initNavDrawer()
@@ -38,7 +36,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     fun initNavDrawer() {
         val toggle = ActionBarDrawerToggle(
-                this, drawer_layout1, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+                this, drawer_layout1, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout1.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -51,8 +49,8 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
+        if (drawer_layout1.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout1.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
@@ -81,7 +79,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             }
         }
 
-        drawer_layout.closeDrawer(GravityCompat.START)
+        drawer_layout1.closeDrawer(GravityCompat.START)
         return true
     }
 
