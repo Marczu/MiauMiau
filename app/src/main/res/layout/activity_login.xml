@@ -42,7 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ed_layout2"
-        android:text="Login" />
+        android:text="Login"
+        />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/register_new_user_btn"

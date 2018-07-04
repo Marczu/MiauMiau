@@ -20,6 +20,7 @@
     <color name="chat_light_grey">#99aab5</color>
     <color name="chat_dark">#2c2f33</color>
     <color name="chat_dark2">#23272a</color>
+    <color name="message_color">#ACB8BC</color>
 </resources>
 
 

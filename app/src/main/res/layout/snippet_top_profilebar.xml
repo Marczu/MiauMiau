@@ -6,12 +6,15 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:elevation="20dp"
+        android:layout_marginBottom="5dp"
         android:background="@color/chat_dark">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/profileToolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:elevation="20dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -19,22 +22,22 @@
 
                 <ImageView
                     android:id="@+id/burger_menu"
-                    android:src="@drawable/menu_burger_24dp"
-                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/menu_burger_24dp" />
 
                 <TextView
                     android:id="@+id/username"
-                    android:layout_centerVertical="true"
-                    android:text=""
-                    android:layout_toRightOf="@+id/burger_menu"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="username"/>
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_toRightOf="@+id/burger_menu"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:text="username" />
 
                 <ImageView
                     android:id="@+id/profileMenu"
@@ -43,14 +46,13 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
-                    android:src="@drawable/ic_elipses"/>
+                    android:src="@drawable/ic_elipses" />
 
 
             </RelativeLayout>
 
 
         </android.support.v7.widget.Toolbar>
-
 
 
     </android.support.design.widget.AppBarLayout>

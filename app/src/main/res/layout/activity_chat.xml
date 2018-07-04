@@ -5,6 +5,7 @@
     android:id="@+id/drawer_layout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/chat_dark"
     tools:context=".chat.MainChatActivity">
 
     <RelativeLayout
@@ -16,7 +17,8 @@
         <RelativeLayout
             android:id="@+id/relLayout1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <include layout="@layout/snippet_top_profilebar"/>
 
@@ -38,6 +40,36 @@
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="50dp">
+
+         <ImageView
+             android:id="@+id/chat_add_iv"
+             android:background="@drawable/ic_add_black_24dp"
+             android:layout_width="30dp"
+             android:layout_height="30dp"
+             android:layout_marginLeft="15dp"
+             android:layout_centerVertical="true"/>
+
+            <EditText
+                android:id="@+id/chat_message_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/message_color"
+                android:layout_toRightOf="@+id/chat_add_iv"
+                android:layout_centerVertical="true"
+                android:textSize="14sp"
+                android:background="@null"
+                android:textColorHint="@color/message_color"
+                android:hint="Napisz wiadomość"/>
+
+            <ImageView
+                android:id="@+id/chat_send_iv"
+                android:background="@drawable/ic_send_black_24dp"
+                android:layout_width="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_height="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"/>
 
         </RelativeLayout>
 
