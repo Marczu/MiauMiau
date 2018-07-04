@@ -8,19 +8,44 @@
     tools:context=".chat.MainChatActivity">
 
     <RelativeLayout
-        android:id="@+id/relLayout1"
+        android:id="@+id/relLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <include layout="@layout/snippet_top_profilebar"/>
+
+        <RelativeLayout
+            android:id="@+id/relLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/snippet_top_profilebar"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relLayout_main_chat_content"
+            android:background="@color/chat_dark"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relLayout_bottom"
+            android:background="@drawable/dark_border_top"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+        </RelativeLayout>
+
+
+
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view1"
@@ -30,7 +55,6 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main_chat"
         app:menu="@menu/activity_main_chat_drawer" />
-
 
 
 
