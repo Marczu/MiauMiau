@@ -2,14 +2,23 @@ package com.marcinmejner.miaumiau.chat
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.Gravity
+import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.marcinmejner.miaumiau.R
 import com.marcinmejner.miaumiau.login.LoginActivity
+import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.activity_main_cha.*
+import kotlinx.android.synthetic.main.app_bar_main_cha.*
+import kotlinx.android.synthetic.main.snippet_top_profilebar.*
 
-class MainChatActivity : AppCompatActivity() {
+class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private val TAG = "MainChatActivity"
 
     private val contex = this@MainChatActivity
@@ -21,9 +30,59 @@ class MainChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+        setSupportActionBar(toolbar)
 
         setupFirebaseAuth()
+        initNavDrawer()
+    }
 
+    fun initNavDrawer() {
+        val toggle = ActionBarDrawerToggle(
+                this, drawer_layout1, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer_layout1.addDrawerListener(toggle)
+        toggle.syncState()
+
+        nav_view1.setNavigationItemSelectedListener(this)
+
+        burger_menu.setOnClickListener {
+            drawer_layout1.openDrawer(Gravity.START)
+        }
+    }
+
+
+    override fun onBackPressed() {
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        // Handle navigation view item clicks here.
+        when (item.itemId) {
+            R.id.nav_camera -> {
+                // Handle the camera action
+            }
+            R.id.nav_gallery -> {
+
+            }
+            R.id.nav_slideshow -> {
+
+            }
+            R.id.nav_manage -> {
+
+            }
+            R.id.nav_share -> {
+
+            }
+            R.id.nav_send -> {
+
+            }
+        }
+
+        drawer_layout.closeDrawer(GravityCompat.START)
+        return true
     }
 
     /*

@@ -14,6 +14,12 @@
     <color name="black">#000000</color>
     <color name="link_blue">#4d94ff</color>
     <color name="dark_red">#cc0000</color>
+
+
+    <color name="chat_light_blue">#7289da</color>
+    <color name="chat_light_grey">#99aab5</color>
+    <color name="chat_dark">#2c2f33</color>
+    <color name="chat_dark2">#23272a</color>
 </resources>
 
 
