@@ -143,43 +143,16 @@ class FirebaseFunctions(val context: Context) {
 //                                    .getFollowers()
 //                    )
 
-                    Log.d(TAG, "getUserAccountSettings: Otrzymane informacje z user_account_settings: " + settings.toString())
+                    Log.d(TAG, "getUserAccountSettings: Otrzymane informacje z user_account_settings: " + userAccount.toString())
                 } catch (e: NullPointerException) {
                     Log.e(TAG, "NullPointerException: ${e.message} ")
                 }
 
             }
-            /*users node*/
-            if (ds.key == mContex.getString(R.string.dbname_users)) {
-                Log.d(TAG, "getUserAccountSettings: dataSnapshot: $ds")
-                user.setUsername(
-                        ds.child(userID)
-                                .getValue<User>(User::class.java)!!
-                                .getUsername()
-                )
-                user.setEmail(
-                        ds.child(userID)
-                                .getValue<User>(User::class.java)!!
-                                .getEmail()
-                )
-                user.setPhone_number(
-                        ds.child(userID)
-                                .getValue<User>(User::class.java)!!
-                                .getPhone_number()
-                )
-                user.setUser_id(
-                        ds.child(userID)
-                                .getValue<User>(User::class.java)!!
-                                .getUser_id()
-                )
-                Log.d(TAG, "getUserAccountSettings: Otrzymane informacje z user: " + user.toString())
-
-
-            }
 
 
         }
-        return UserSettings(user, settings)
+        return userAccount
     }
 
 

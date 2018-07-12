@@ -11,8 +11,11 @@ import android.view.Gravity
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 import com.marcinmejner.miaumiau.R
 import com.marcinmejner.miaumiau.login.LoginActivity
+import com.marcinmejner.miaumiau.models.UserAccount
+import com.marcinmejner.miaumiau.utils.FirebaseFunctions
 import kotlinx.android.synthetic.main.activity_chat.*
 
 import kotlinx.android.synthetic.main.snippet_top_profilebar.*
@@ -25,13 +28,27 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     //Firebase Auth
     private var mAuth: FirebaseAuth? = null
     private var mAuthStateListener: FirebaseAuth.AuthStateListener? = null
+    private var mFirebaseDatabase: FirebaseDatabase? = null
+    private var myRef: DatabaseReference? = null
+    private var mFirebaseFunctions: FirebaseFunctions? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+        mFirebaseFunctions = FirebaseFunctions(this)
+
         setupFirebaseAuth()
         initNavDrawer()
+    }
+
+    private fun setProfileWidgets(userAccount: UserAccount?) {
+        Log.d(TAG, "setProfileWidgets: ustawianie wigdetów z uzyciem bazy z firebase" + userAccount.toString())
+        Log.d(TAG, "setProfileWidgets: ustawianie wigdetów z uzyciem bazy z firebase" + userAccount?.username)
+
+        val account = userAccount
+        username.text = account?.username
+
     }
 
     private fun initNavDrawer() {
@@ -98,8 +115,12 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     }
 
     private fun setupFirebaseAuth() {
-        mAuth = FirebaseAuth.getInstance()
         //        mAuth.signOut();
+        mAuth = FirebaseAuth.getInstance()
+        mFirebaseDatabase = FirebaseDatabase.getInstance()
+        myRef = mFirebaseDatabase?.reference
+
+
         mAuthStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val user = firebaseAuth.currentUser
 
@@ -111,7 +132,23 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 Log.d(TAG, "onAuthStateChanged: user signed_out")
             }
         }
+
+        myRef?.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                /*Getting user data from database*/
+                setProfileWidgets(mFirebaseFunctions?.getUserAccount(dataSnapshot))
+
+                /*Pozyskiwanie obrazków usera z bazy danych*/
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        })
     }
+
+
 
     public override fun onStart() {
         super.onStart()
