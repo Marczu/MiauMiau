@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -86,6 +87,99 @@ class FirebaseFunctions(val context: Context) {
         myRef.child(context.getString(R.string.dbname_users))
                 .child(userID)
                 .setValue(user)
+    }
+
+    /*Getting data from Users node for currently logger user */
+    fun getUserAccount(dataSnapshot: DataSnapshot): UserAccount {
+        Log.d(TAG, "getUserAccount: Getting data from user node")
+
+        val userAccount = UserAccount()
+
+        for (ds in dataSnapshot.children) {
+
+
+            /*user node*/
+            if (ds.key == context.getString(R.string.dbname_user_account)) {
+                Log.d(TAG, "getUserAccount: $ds")
+                try {
+                    userAccount.username =
+                            ds.child(userID)
+                                    .getValue<UserAccount>(UserAccount::class.java)!!
+                                    .username
+
+//                    settings.setUsername(
+//                            ds.child(userID)
+//                                    .getValue<UserAccountSettings>(UserAccountSettings::class.java)!!
+//                                    .getUsername()
+//                    )
+//                    settings.setWebsite(
+//                            ds.child(userID)
+//                                    .getValue<UserAccountSettings>(UserAccountSettings::class.java)!!
+//                                    .getWebsite()
+//                    )
+//                    settings.setDescription(
+//                            ds.child(userID)
+//                                    .getValue<UserAccountSettings>(UserAccountSettings::class.java)!!
+//                                    .getDescription()
+//                    )
+//                    settings.setProfile_photo(
+//                            ds.child(userID)
+//                                    .getValue<UserAccountSettings>(UserAccountSettings::class.java)!!
+//                                    .getProfile_photo()
+//                    )
+//                    settings.setPosts(
+//                            ds.child(userID)
+//                                    .getValue<UserAccountSettings>(UserAccountSettings::class.java)!!
+//                                    .getPosts()
+//                    )
+//                    settings.setFollowing(
+//                            ds.child(userID)
+//                                    .getValue<UserAccountSettings>(UserAccountSettings::class.java)!!
+//                                    .getFollowing()
+//                    )
+//                    settings.setFollowers(
+//                            ds.child(userID)
+//                                    .getValue<UserAccountSettings>(UserAccountSettings::class.java)!!
+//                                    .getFollowers()
+//                    )
+
+                    Log.d(TAG, "getUserAccountSettings: Otrzymane informacje z user_account_settings: " + settings.toString())
+                } catch (e: NullPointerException) {
+                    Log.e(TAG, "NullPointerException: ${e.message} ")
+                }
+
+            }
+            /*users node*/
+            if (ds.key == mContex.getString(R.string.dbname_users)) {
+                Log.d(TAG, "getUserAccountSettings: dataSnapshot: $ds")
+                user.setUsername(
+                        ds.child(userID)
+                                .getValue<User>(User::class.java)!!
+                                .getUsername()
+                )
+                user.setEmail(
+                        ds.child(userID)
+                                .getValue<User>(User::class.java)!!
+                                .getEmail()
+                )
+                user.setPhone_number(
+                        ds.child(userID)
+                                .getValue<User>(User::class.java)!!
+                                .getPhone_number()
+                )
+                user.setUser_id(
+                        ds.child(userID)
+                                .getValue<User>(User::class.java)!!
+                                .getUser_id()
+                )
+                Log.d(TAG, "getUserAccountSettings: Otrzymane informacje z user: " + user.toString())
+
+
+            }
+
+
+        }
+        return UserSettings(user, settings)
     }
 
 

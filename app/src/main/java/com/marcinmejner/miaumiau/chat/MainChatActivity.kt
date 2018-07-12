@@ -34,7 +34,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         initNavDrawer()
     }
 
-    fun initNavDrawer() {
+    private fun initNavDrawer() {
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout1, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout1.addDrawerListener(toggle)
