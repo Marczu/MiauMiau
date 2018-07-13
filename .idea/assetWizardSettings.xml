@@ -28,9 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_arrow_back_white_24dp" />
-                            <entry key="sourceFile" value="C:\Users\marcz\Desktop\dots-vertical.svg" />
+                            <entry key="outputName" value="ic_logout_white" />
+                            <entry key="sourceFile" value="C:\Users\marcz\Desktop\logout-variant.svg" />
                           </map>
                         </option>
                       </PersistentState>
