@@ -14,39 +14,32 @@
             android:id="@+id/profileToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="20dp">
+            android:elevation="5dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/burger_menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/back_arrow"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/menu_burger_24dp" />
+                    android:src="@drawable/ic_arrow_back_white_24dp" />
 
                 <TextView
-                    android:id="@+id/username"
+                    android:id="@+id/logout_editprofile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_toRightOf="@+id/burger_menu"
-                    android:text=""
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    tools:text="username" />
-
-                <ImageView
-                    android:id="@+id/edit_profile"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:textSize="18dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
-                    android:src="@drawable/ic_dots_vertical" />
+                    android:text="Wyloguj się"
+                     />
+
+
 
 
             </RelativeLayout>

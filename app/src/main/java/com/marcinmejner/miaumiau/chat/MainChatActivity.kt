@@ -16,6 +16,7 @@ import com.marcinmejner.miaumiau.R
 import com.marcinmejner.miaumiau.base.BaseActivity
 import com.marcinmejner.miaumiau.login.LoginActivity
 import com.marcinmejner.miaumiau.models.UserAccount
+import com.marcinmejner.miaumiau.profile.AccountSettingsActivity
 import com.marcinmejner.miaumiau.utils.FirebaseFunctions
 import kotlinx.android.synthetic.main.activity_chat.*
 
@@ -42,8 +43,11 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         init()
 
+        navigateToEditProfile()
 
     }
+
+
 
     private fun init() {
         initFirebaseFunctions()
@@ -74,6 +78,14 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         burger_menu.setOnClickListener {
             drawer_layout1.openDrawer(Gravity.START)
+        }
+    }
+
+    private fun navigateToEditProfile() {
+        edit_profile.setOnClickListener {
+            Intent(this@MainChatActivity, AccountSettingsActivity::class.java).apply {
+                startActivity(this)
+            }
         }
     }
 
