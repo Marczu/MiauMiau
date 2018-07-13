@@ -13,12 +13,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.marcinmejner.miaumiau.R
+import com.marcinmejner.miaumiau.base.BaseActivity
 import com.marcinmejner.miaumiau.login.LoginActivity
 import com.marcinmejner.miaumiau.models.UserAccount
 import com.marcinmejner.miaumiau.utils.FirebaseFunctions
 import kotlinx.android.synthetic.main.activity_chat.*
 
 import kotlinx.android.synthetic.main.snippet_top_profilebar.*
+import javax.inject.Inject
 
 class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private val TAG = "MainChatActivity"
@@ -30,16 +32,27 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     private var mAuthStateListener: FirebaseAuth.AuthStateListener? = null
     private var mFirebaseDatabase: FirebaseDatabase? = null
     private var myRef: DatabaseReference? = null
-    private var mFirebaseFunctions: FirebaseFunctions? = null
+
+    @Inject
+    lateinit var mFirebaseFunctions: FirebaseFunctions
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        mFirebaseFunctions = FirebaseFunctions(this)
+        init()
 
+
+    }
+
+    private fun init() {
+        initFirebaseFunctions()
         setupFirebaseAuth()
         initNavDrawer()
+    }
+
+    private fun initFirebaseFunctions() {
+        BaseActivity.component.inject(this)
     }
 
     private fun setProfileWidgets(userAccount: UserAccount?) {
