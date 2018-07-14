@@ -42,7 +42,7 @@ class SignOutFragment : Fragment() {
             if (user != null) {
                 Log.d(TAG, "user signed_in:  " + user.uid)
             } else {
-                Log.d(TAG, "onAuthStateChanged: user signed_out")
+                Log.d(TAG, "onAuthStateChanged: user  signed_out")
                 Log.d(TAG, "onAuthStateChanged: wracamy do ekranu logowania")
                 //going back to login screen
                 val intent = Intent(activity, LoginActivity::class.java)
