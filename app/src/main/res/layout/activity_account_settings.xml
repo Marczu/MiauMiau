@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".profile.AccountSettingsActivity"
-    android:background="@color/chat_dark">
+    android:background="@color/chat_dark"
+    android:id="@+id/container">
 
     <RelativeLayout
         android:id="@+id/relLayout1"

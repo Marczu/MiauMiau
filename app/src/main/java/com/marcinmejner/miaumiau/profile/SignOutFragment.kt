@@ -12,9 +12,12 @@ import com.google.firebase.auth.FirebaseAuth
 
 import com.marcinmejner.miaumiau.R
 import com.marcinmejner.miaumiau.login.LoginActivity
+import kotlinx.android.synthetic.main.fragment_sign_out.*
+import kotlinx.android.synthetic.main.fragment_sign_out.view.*
 
 class SignOutFragment : Fragment() {
     private val TAG = "SignOutFragment"
+
 
     //Firebase
     private var mAuth: FirebaseAuth? = null
@@ -26,6 +29,16 @@ class SignOutFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_sign_out, container, false)
 
         setupFirebaseAuth()
+
+        view.progressbar_signout.visibility = View.GONE
+
+        view.btnConfirmSignOut.setOnClickListener{
+            Log.d(TAG, "onClick: proba wylogowania się")
+            progressbar_signout.visibility = View.VISIBLE
+            mAuth?.signOut()
+
+            activity!!.finish()
+        }
 
         return view
     }
@@ -43,7 +56,7 @@ class SignOutFragment : Fragment() {
                 Log.d(TAG, "user signed_in:  " + user.uid)
             } else {
                 Log.d(TAG, "onAuthStateChanged: user  signed_out")
-                Log.d(TAG, "onAuthStateChanged: wracamy do ekranu logowania")
+                Log.d(TAG, "onAuthStateChanged: going back to login screen")
                 //going back to login screen
                 val intent = Intent(activity, LoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -51,6 +64,8 @@ class SignOutFragment : Fragment() {
             }
         }
     }
+
+
 
     override fun onStart() {
         super.onStart()

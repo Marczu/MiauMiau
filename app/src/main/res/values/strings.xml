@@ -5,10 +5,13 @@
 
     <!--Databse fields-->
     <string name="dbname_users">users</string>
+    <string name="dbname_user_account">users</string>
 
     <string name="field_username">username</string>
     <string name="field_email">email</string>
     <string name="field_user_id">user_id</string>
+
+
     <string name="title_activity_main_cha">MainCha</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -16,8 +19,9 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="dbname_user_account">users</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+   <!--Other-->
+    <string name="logout_fragment">logout_fragment</string>
 </resources>
