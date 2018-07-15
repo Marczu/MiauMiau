@@ -7,6 +7,10 @@ import com.marcinmejner.miaumiau.R
 import kotlinx.android.synthetic.main.snippet_top_edit_profilebar.*
 
 class AccountSettingsActivity : AppCompatActivity() {
+    private val TAG = "AccountSettingsActivity"
+
+    //vars
+    lateinit var fragmentManager: FragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,6 +18,7 @@ class AccountSettingsActivity : AppCompatActivity() {
 
         finishActivity()
         displayLogout()
+        changeProfilePhoto()
     }
 
     private fun finishActivity(){
@@ -25,10 +30,26 @@ class AccountSettingsActivity : AppCompatActivity() {
     private fun displayLogout(){
         logout_editprofile.setOnClickListener {
             val fragment = SignOutFragment()
-            val fm = supportFragmentManager
-            val transaction = fm.beginTransaction()
+            fragmentManager = supportFragmentManager
+            val transaction = fragmentManager.beginTransaction()
                     .add(R.id.container, fragment, getString(R.string.logout_fragment))
+                    .addToBackStack(getString(R.string.logout_fragment))
                     .commit()
         }
+    }
+
+    private fun changeProfilePhoto() {
+
+    }
+
+    override fun onBackPressed() {
+        val count = fragmentManager.backStackEntryCount
+
+        if (count == 0) {
+            super.onBackPressed()
+        } else {
+            fragmentManager.popBackStack()
+        }
+
     }
 }

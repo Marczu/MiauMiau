@@ -17,6 +17,34 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+       android:id="@+id/relLayout2_profile_photo"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/relLayout1"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:src="@drawable/img_holder"
+            android:layout_centerHorizontal="true"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
+        <TextView
+            android:id="@+id/change_profile_photo_tv"
+            android:layout_below="@id/profile_image"
+            android:text="Zmień zdjecie profilowe"
+            android:textSize="16dp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+    </RelativeLayout>
+
 
 
 
