@@ -8,12 +8,12 @@
     android:background="@color/chat_dark"
     tools:context=".profile.AccountSettingsActivity">
 
-    <!--Toolbar-->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
+        <!--Toolbar-->
         <RelativeLayout
             android:id="@+id/relLayout1"
             android:layout_width="match_parent"
@@ -24,72 +24,108 @@
         </RelativeLayout>
 
 
-        <!--Profile_Photo-->
-
-
-
-
         <ScrollView
+            android:layout_below="@id/relLayout1"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <RelativeLayout
-                android:id="@+id/relLayout2_profile_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/relLayout1"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_image"
-
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_centerHorizontal="true" />
-
-
-                <TextView
-                    android:id="@+id/change_profile_photo_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/profile_image"
-                    android:text="Zmień zdjecie profilowe"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-
-            </RelativeLayout>
-
-            <!--Username-->
-            <RelativeLayout
-                android:id="@+id/relLayout3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/relLayout2_profile_photo"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="40dp">
+                android:layout_height="wrap_content">
 
 
-                <ImageView
-                    android:id="@+id/username_icon"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_username_white_24dp" />
-
-                <EditText
-                    android:id="@+id/username_et"
+                <!--Profile_Photo-->
+                <RelativeLayout
+                    android:id="@+id/relLayout2_profile_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/username_icon"
-                    android:hint="Wyedytuj nazwe uzytkownika"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textSize="18sp" />
+                    android:layout_below="@+id/relLayout1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp">
 
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_centerHorizontal="true" />
+
+
+                    <TextView
+                        android:id="@+id/change_profile_photo_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/profile_image"
+                        android:text="Zmień zdjecie profilowe"
+                        android:textColor="@color/white"
+                        android:textSize="16dp" />
+
+
+                </RelativeLayout>
+
+                <!--Username-->
+                <RelativeLayout
+                    android:id="@+id/relLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/relLayout2_profile_photo"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="40dp">
+
+
+                    <ImageView
+                        android:id="@+id/username_icon"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_username_white_24dp" />
+
+                    <EditText
+                        android:id="@+id/username_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/username_icon"
+                        android:hint="Wyedytuj nazwe uzytkownika"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textSize="18sp" />
+
+
+                </RelativeLayout>
+
+                <!--Email-->
+                <RelativeLayout
+                    android:id="@+id/relLayout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/relLayout3"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="10dp">
+
+
+                    <ImageView
+                        android:id="@+id/email_icon"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_email_white_24dp" />
+
+                    <EditText
+                        android:id="@+id/email_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/email_icon"
+                        android:hint="Wyedytuj email uzytkownika"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textSize="18sp" />
+
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
