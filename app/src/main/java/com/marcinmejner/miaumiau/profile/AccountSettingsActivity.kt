@@ -11,7 +11,9 @@ import com.marcinmejner.miaumiau.base.BaseActivity
 import com.marcinmejner.miaumiau.models.UserAccount
 import com.marcinmejner.miaumiau.utils.FirebaseFunctions
 import com.marcinmejner.miaumiau.utils.UniversalImageLoader
+import kotlinx.android.synthetic.main.activity_account_settings.*
 import kotlinx.android.synthetic.main.snippet_top_edit_profilebar.*
+import javax.inject.Inject
 
 class AccountSettingsActivity : AppCompatActivity() {
     private val TAG = "AccountSettingsActivity"
@@ -21,13 +23,13 @@ class AccountSettingsActivity : AppCompatActivity() {
     private var mAuthStateListener: FirebaseAuth.AuthStateListener? = null
     private var mFirebaseDatabase: FirebaseDatabase? = null
     private var myRef: DatabaseReference? = null
-    lateinit var firebaseFunctions: FirebaseFunctions
+    @Inject lateinit var firebaseFunctions: FirebaseFunctions
     private var userID: String? = null
 
     //vars
     lateinit var fragmentManager: FragmentManager
     lateinit var userAccount: UserAccount
-    lateinit var uImageLoader: UniversalImageLoader
+    @Inject lateinit var uImageLoader: UniversalImageLoader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +68,12 @@ class AccountSettingsActivity : AppCompatActivity() {
         Log.d(TAG, "setProfileWidgets: setting profile data from : $userAccount")
 
         this.userAccount = userAccount
+
+        uImageLoader.setImage(userAccount.profile_photo, profile_image, null, "")
+
+        username_et.setText(userAccount.username)
+
+
 
 
     }

@@ -45,6 +45,27 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/relLayout3"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@+id/relLayout2_profile_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/username_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:hint="Wyedytuj nazwe uzytkownika"/>
+
+
+    </RelativeLayout>
+
 
 
 

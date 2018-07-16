@@ -2,6 +2,7 @@ package com.marcinmejner.miaumiau.di
 
 import android.content.Context
 import com.marcinmejner.miaumiau.utils.FirebaseFunctions
+import com.marcinmejner.miaumiau.utils.UniversalImageLoader
 import dagger.Module
 import dagger.Provides
 
@@ -13,5 +14,6 @@ class FirebaseModule(val context: Context) {
     fun provideFirebaseFunctions(): FirebaseFunctions {
         return FirebaseFunctions(context)
     }
+
 
 }

@@ -20,6 +20,7 @@ import com.marcinmejner.miaumiau.profile.AccountSettingsActivity
 import com.marcinmejner.miaumiau.utils.FirebaseFunctions
 import com.marcinmejner.miaumiau.utils.UniversalImageLoader
 import com.nostra13.universalimageloader.core.ImageLoader
+import kotlinx.android.synthetic.main.activity_account_settings.*
 import kotlinx.android.synthetic.main.activity_chat.*
 
 import kotlinx.android.synthetic.main.snippet_top_profilebar.*
@@ -38,6 +39,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     @Inject
     lateinit var mFirebaseFunctions: FirebaseFunctions
+    @Inject
     lateinit var uImageLoader: UniversalImageLoader
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,8 +55,8 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
 
     private fun init() {
-        initImageLoader()
         initDagger()
+        initImageLoader()
         setupFirebaseAuth()
         initNavDrawer()
 
