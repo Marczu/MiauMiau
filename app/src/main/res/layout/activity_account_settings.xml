@@ -1,74 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profile.AccountSettingsActivity"
     android:background="@color/chat_dark"
-    android:id="@+id/container">
+    tools:context=".profile.AccountSettingsActivity">
 
+    <!--Toolbar-->
     <RelativeLayout
-        android:id="@+id/relLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <include layout="@layout/snippet_top_edit_profilebar"/>
+
+        <RelativeLayout
+            android:id="@+id/relLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/snippet_top_edit_profilebar" />
+
+        </RelativeLayout>
+
+
+        <!--Profile_Photo-->
+
+
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/relLayout2_profile_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relLayout1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerHorizontal="true" />
+
+
+                <TextView
+                    android:id="@+id/change_profile_photo_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profile_image"
+                    android:text="Zmień zdjecie profilowe"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+
+            </RelativeLayout>
+
+            <!--Username-->
+            <RelativeLayout
+                android:id="@+id/relLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relLayout2_profile_photo"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="40dp">
+
+
+                <ImageView
+                    android:id="@+id/username_icon"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_username_white_24dp" />
+
+                <EditText
+                    android:id="@+id/username_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/username_icon"
+                    android:hint="Wyedytuj nazwe uzytkownika"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="18sp" />
+
+
+            </RelativeLayout>
+
+        </ScrollView>
+
 
     </RelativeLayout>
 
-    <RelativeLayout
-       android:id="@+id/relLayout2_profile_photo"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/relLayout1"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
-
-            android:layout_centerHorizontal="true"
-            android:layout_width="150dp"
-            android:layout_height="150dp" />
-
-        <TextView
-            android:id="@+id/change_profile_photo_tv"
-            android:layout_below="@id/profile_image"
-            android:text="Zmień zdjecie profilowe"
-            android:textSize="16dp"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relLayout3"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_below="@+id/relLayout2_profile_photo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/username_et"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:hint="Wyedytuj nazwe uzytkownika"/>
-
-
-    </RelativeLayout>
-
-
-
-
-
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
