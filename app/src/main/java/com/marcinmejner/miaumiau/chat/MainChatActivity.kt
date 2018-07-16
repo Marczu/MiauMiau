@@ -63,7 +63,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     }
 
     private fun initImageLoader() {
-        ImageLoader.getInstance().init(uImageLoader.getConfig())
+//        ImageLoader.getInstance().init(uImageLoader.getConfig())
     }
 
     private fun initDagger() {

@@ -11,6 +11,7 @@ import com.marcinmejner.miaumiau.base.BaseActivity
 import com.marcinmejner.miaumiau.models.UserAccount
 import com.marcinmejner.miaumiau.utils.FirebaseFunctions
 import com.marcinmejner.miaumiau.utils.UniversalImageLoader
+import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_account_settings.*
 import kotlinx.android.synthetic.main.snippet_top_edit_profilebar.*
 import javax.inject.Inject
@@ -68,8 +69,10 @@ class AccountSettingsActivity : AppCompatActivity() {
         Log.d(TAG, "setProfileWidgets: setting profile data from : $userAccount")
 
         this.userAccount = userAccount
+        ImageLoader.getInstance().init(uImageLoader.getConfig())
 
-        uImageLoader.setImage(userAccount.profile_photo, profile_image, null, "")
+
+        uImageLoader.setImage("", profile_image, "")
 
         username_et.setText(userAccount.username)
 

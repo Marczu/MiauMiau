@@ -39,31 +39,23 @@ class UniversalImageLoader(val context: Context) {
                 .diskCacheSize(100 * 1024 * 1024).build()
     }
 
-    fun setImage(imageUrl: String, image: ImageView, progressBar: ProgressBar?, append: String) {
+    fun setImage(imageUrl: String?, image: ImageView?, append: String) {
         val imageLoader = ImageLoader.getInstance()
         imageLoader.displayImage(append + imageUrl, image, object : ImageLoadingListener {
-            override fun onLoadingStarted(imageUri: String, view: View) {
-                if (progressBar != null) {
-                    progressBar.visibility = View.VISIBLE
-                }
+            override fun onLoadingStarted(imageUri: String?, view: View) {
+
             }
 
-            override fun onLoadingFailed(imageUri: String, view: View, failReason: FailReason) {
-                if (progressBar != null) {
-                    progressBar.visibility = View.GONE
-                }
+            override fun onLoadingFailed(imageUri: String?, view: View, failReason: FailReason) {
+
             }
 
-            override fun onLoadingComplete(imageUri: String, view: View, loadedImage: Bitmap) {
-                if (progressBar != null) {
-                    progressBar.visibility = View.GONE
-                }
+            override fun onLoadingComplete(imageUri: String?, view: View, loadedImage: Bitmap?) {
+
             }
 
-            override fun onLoadingCancelled(imageUri: String, view: View) {
-                if (progressBar != null) {
-                    progressBar.visibility = View.GONE
-                }
+            override fun onLoadingCancelled(imageUri: String?, view: View) {
+
             }
         })
 
