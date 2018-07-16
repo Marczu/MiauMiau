@@ -7,7 +7,8 @@ import dagger.Component
 
 @FirebaseScope
 @Component(modules = arrayOf(
-        FirebaseModule::class)
+        FirebaseModule::class,
+        UniversalImageLoaderModule::class)
 )
 interface FirebaseComponent {
 

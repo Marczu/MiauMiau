@@ -10,22 +10,24 @@ import com.marcinmejner.miaumiau.R
 import com.marcinmejner.miaumiau.base.BaseActivity
 import com.marcinmejner.miaumiau.models.UserAccount
 import com.marcinmejner.miaumiau.utils.FirebaseFunctions
+import com.marcinmejner.miaumiau.utils.UniversalImageLoader
 import kotlinx.android.synthetic.main.snippet_top_edit_profilebar.*
 
 class AccountSettingsActivity : AppCompatActivity() {
     private val TAG = "AccountSettingsActivity"
 
     //Firebase Auth
-    var mAuth: FirebaseAuth? = null
-    var mAuthStateListener: FirebaseAuth.AuthStateListener? = null
-    var mFirebaseDatabase: FirebaseDatabase? = null
-    var myRef: DatabaseReference? = null
+    private var mAuth: FirebaseAuth? = null
+    private var mAuthStateListener: FirebaseAuth.AuthStateListener? = null
+    private var mFirebaseDatabase: FirebaseDatabase? = null
+    private var myRef: DatabaseReference? = null
     lateinit var firebaseFunctions: FirebaseFunctions
-    var userID: String? = null
+    private var userID: String? = null
 
     //vars
     lateinit var fragmentManager: FragmentManager
     lateinit var userAccount: UserAccount
+    lateinit var uImageLoader: UniversalImageLoader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

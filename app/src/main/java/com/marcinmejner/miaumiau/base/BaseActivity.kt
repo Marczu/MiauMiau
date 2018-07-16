@@ -4,6 +4,7 @@ import android.app.Application
 import com.marcinmejner.miaumiau.di.DaggerFirebaseComponent
 import com.marcinmejner.miaumiau.di.FirebaseComponent
 import com.marcinmejner.miaumiau.di.FirebaseModule
+import com.marcinmejner.miaumiau.di.UniversalImageLoaderModule
 
 class BaseActivity: Application() {
 
@@ -15,6 +16,7 @@ class BaseActivity: Application() {
         super.onCreate()
         component = DaggerFirebaseComponent.builder()
                 .firebaseModule(FirebaseModule(this))
+                .universalImageLoaderModule(UniversalImageLoaderModule(this))
                 .build()
     }
 
