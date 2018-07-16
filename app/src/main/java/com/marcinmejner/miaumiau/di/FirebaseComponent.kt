@@ -1,6 +1,7 @@
 package com.marcinmejner.miaumiau.di
 
 import com.marcinmejner.miaumiau.chat.MainChatActivity
+import com.marcinmejner.miaumiau.profile.AccountSettingsActivity
 import dagger.Component
 
 
@@ -11,4 +12,5 @@ import dagger.Component
 interface FirebaseComponent {
 
     fun inject(mainChatActivity: MainChatActivity)
+    fun inject(accountSettingsActivity: AccountSettingsActivity)
 }

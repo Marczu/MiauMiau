@@ -107,41 +107,6 @@ class FirebaseFunctions(val context: Context) {
                                     .getValue<UserAccount>(UserAccount::class.java)!!
                                     .username
 
-//                    settings.setUsername(
-//                            ds.child(userID)
-//                                    .getValue<UserAccountSettings>(UserAccountSettings::class.java)!!
-//                                    .getUsername()
-//                    )
-//                    settings.setWebsite(
-//                            ds.child(userID)
-//                                    .getValue<UserAccountSettings>(UserAccountSettings::class.java)!!
-//                                    .getWebsite()
-//                    )
-//                    settings.setDescription(
-//                            ds.child(userID)
-//                                    .getValue<UserAccountSettings>(UserAccountSettings::class.java)!!
-//                                    .getDescription()
-//                    )
-//                    settings.setProfile_photo(
-//                            ds.child(userID)
-//                                    .getValue<UserAccountSettings>(UserAccountSettings::class.java)!!
-//                                    .getProfile_photo()
-//                    )
-//                    settings.setPosts(
-//                            ds.child(userID)
-//                                    .getValue<UserAccountSettings>(UserAccountSettings::class.java)!!
-//                                    .getPosts()
-//                    )
-//                    settings.setFollowing(
-//                            ds.child(userID)
-//                                    .getValue<UserAccountSettings>(UserAccountSettings::class.java)!!
-//                                    .getFollowing()
-//                    )
-//                    settings.setFollowers(
-//                            ds.child(userID)
-//                                    .getValue<UserAccountSettings>(UserAccountSettings::class.java)!!
-//                                    .getFollowers()
-//                    )
 
                     Log.d(TAG, "getUserAccountSettings: Otrzymane informacje z user_account_settings: " + userAccount.toString())
                 } catch (e: NullPointerException) {
