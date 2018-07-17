@@ -19,26 +19,35 @@ import kotlinx.android.synthetic.main.snippet_top_edit_profilebar.*
 import javax.inject.Inject
 import android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.content.pm.PackageManager
+import android.support.v4.app.ActivityCompat
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import com.marcinmejner.miaumiau.utils.Permissions
 
 
 class AccountSettingsActivity : AppCompatActivity() {
     private val TAG = "AccountSettingsActivity"
+
+
 
     //Firebase Auth
     private var mAuth: FirebaseAuth? = null
     private var mAuthStateListener: FirebaseAuth.AuthStateListener? = null
     private var mFirebaseDatabase: FirebaseDatabase? = null
     private var myRef: DatabaseReference? = null
-    @Inject lateinit var firebaseFunctions: FirebaseFunctions
+    @Inject
+    lateinit var firebaseFunctions: FirebaseFunctions
     private var userID: String? = null
+
+    private val VERIFY_PERMISSIONS_REQUEST = 1
 
     //vars
     lateinit var fragmentManager: FragmentManager
     lateinit var userAccount: UserAccount
-    @Inject lateinit var uImageLoader: UniversalImageLoader
+    @Inject
+    lateinit var uImageLoader: UniversalImageLoader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +57,7 @@ class AccountSettingsActivity : AppCompatActivity() {
         finishActivity()
         displayLogout()
         changeProfilePhoto()
+        permissionsCheck()
     }
 
     private fun initFirebaseFunctions() {
@@ -103,6 +113,58 @@ class AccountSettingsActivity : AppCompatActivity() {
         }
 
     }
+
+    /*permissions check*/
+    fun permissionsCheck(){
+        if (checkPermissionsArray(Permissions.PERMISSIONS)) {
+
+            /*Dodajemy zdjecie*/
+
+
+        } else {
+            veryfiPermissions(Permissions.PERMISSIONS)
+        }
+    }
+
+    /*Verify all permissions*/
+    fun veryfiPermissions(permissions: Array<String>) {
+        Log.d(TAG, "veryfiPermissions: veryfing permissions")
+
+        ActivityCompat.requestPermissions(
+                this@AccountSettingsActivity,
+                permissions,
+                VERIFY_PERMISSIONS_REQUEST
+        )
+    }
+
+    /*Check array permissions*/
+    fun checkPermissionsArray(permissions: Array<String>): Boolean {
+
+        for (i in permissions.indices) {
+            val check = permissions[i]
+
+            if (!checkPermisions(check)) {
+                return false
+            }
+        }
+        return true
+    }
+
+    /*check single permission*/
+    fun checkPermisions(permission: String): Boolean {
+        Log.d(TAG, "checkPermisions: sprawdzamy pozwolenie: $permission")
+
+        val permissionRequest = ActivityCompat.checkSelfPermission(this@AccountSettingsActivity, permission)
+
+        if (permissionRequest != PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG, "checkPermisions: Permission not granted for: $permission")
+            return false
+        } else {
+            Log.d(TAG, "checkPermisions: Permission granted for: $permission")
+            return true
+        }
+    }
+
 
     /*
         ------------------------------FIREBASE -----------------------------------------
