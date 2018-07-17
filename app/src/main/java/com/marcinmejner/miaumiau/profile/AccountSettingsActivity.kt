@@ -1,5 +1,7 @@
 package com.marcinmejner.miaumiau.profile
 
+import android.app.PendingIntent.getActivity
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
@@ -15,6 +17,12 @@ import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_account_settings.*
 import kotlinx.android.synthetic.main.snippet_top_edit_profilebar.*
 import javax.inject.Inject
+import android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.view.View
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+
 
 class AccountSettingsActivity : AppCompatActivity() {
     private val TAG = "AccountSettingsActivity"
@@ -35,7 +43,6 @@ class AccountSettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_settings)
-
         initFirebaseFunctions()
         setupFirebaseAuth()
         finishActivity()
@@ -46,7 +53,6 @@ class AccountSettingsActivity : AppCompatActivity() {
     private fun initFirebaseFunctions() {
         BaseActivity.component.inject(this)
     }
-
 
     private fun finishActivity() {
         back_arrow.setOnClickListener {
@@ -75,10 +81,12 @@ class AccountSettingsActivity : AppCompatActivity() {
         uImageLoader.setImage("", profile_image, "")
 
         username_et.setText(userAccount.username)
+        email_et.setText(userAccount.user_email)
 
+        /*Change profile photo*/
+        relLayout2_profile_photo.setOnClickListener {
 
-
-
+        }
     }
 
     private fun changeProfilePhoto() {

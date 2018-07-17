@@ -22,9 +22,14 @@ import com.marcinmejner.miaumiau.utils.UniversalImageLoader
 import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_account_settings.*
 import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.nav_header_main_chat.*
+import kotlinx.android.synthetic.main.nav_header_main_chat.view.*
 
 import kotlinx.android.synthetic.main.snippet_top_profilebar.*
 import javax.inject.Inject
+import android.widget.TextView
+
+
 
 class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private val TAG = "MainChatActivity"
@@ -63,12 +68,13 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     }
 
     private fun initImageLoader() {
-//        ImageLoader.getInstance().init(uImageLoader.getConfig())
+        ImageLoader.getInstance().init(uImageLoader.getConfig())
     }
 
     private fun initDagger() {
         BaseActivity.component.inject(this)
     }
+
 
     private fun setProfileWidgets(userAccount: UserAccount?) {
         Log.d(TAG, "setProfileWidgets: ustawianie wigdetów z uzyciem bazy z firebase" + userAccount.toString())
@@ -76,6 +82,13 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         val account = userAccount
         username.text = account?.username
+
+        /*Set nav Drawer profile*/
+        val navigationView = findViewById<NavigationView>(R.id.nav_view1)
+        val hView = navigationView.getHeaderView(0)
+        hView.username_nav_drawer.text = account?.username
+        hView.email_nav_drawer.text = account?.user_email
+
 
     }
 
@@ -90,6 +103,8 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         burger_menu.setOnClickListener {
             drawer_layout1.openDrawer(Gravity.START)
         }
+
+
     }
 
     private fun navigateToEditProfile() {

@@ -107,6 +107,21 @@ class FirebaseFunctions(val context: Context) {
                                     .getValue<UserAccount>(UserAccount::class.java)!!
                                     .username
 
+                    userAccount.user_email =
+                            ds.child(userID)
+                                    .getValue<UserAccount>(UserAccount::class.java)!!
+                                    .user_email
+
+                    userAccount.profile_photo =
+                            ds.child(userID)
+                                    .getValue<UserAccount>(UserAccount::class.java)!!
+                                    .profile_photo
+
+                    userAccount.user_id =
+                            ds.child(userID)
+                                    .getValue<UserAccount>(UserAccount::class.java)!!
+                                    .user_id
+
 
                     Log.d(TAG, "getUserAccountSettings: Otrzymane informacje z user_account_settings: " + userAccount.toString())
                 } catch (e: NullPointerException) {

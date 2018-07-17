@@ -69,8 +69,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/relLayout2_profile_photo"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginRight="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="40dp">
 
 
@@ -86,10 +86,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@+id/username_icon"
                         android:hint="Wyedytuj nazwe uzytkownika"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white"
+                        android:inputType="text"
                         android:textSize="18sp" />
 
 
@@ -101,8 +104,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/relLayout3"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginRight="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp">
 
 
@@ -117,6 +120,8 @@
                         android:id="@+id/email_et"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:layout_marginLeft="10dp"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/email_icon"
                         android:hint="Wyedytuj email uzytkownika"

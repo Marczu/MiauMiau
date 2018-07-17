@@ -26,7 +26,9 @@
 
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".login.RegisterActivity" />
-        <activity android:name=".profile.AccountSettingsActivity" />
+        <activity
+            android:name=".profile.AccountSettingsActivity"
+            android:windowSoftInputMode="stateHidden" />
 
     </application>
 
