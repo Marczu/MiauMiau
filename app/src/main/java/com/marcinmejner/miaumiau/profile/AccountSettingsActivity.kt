@@ -28,6 +28,10 @@ import com.marcinmejner.miaumiau.utils.Permissions
 import android.provider.MediaStore
 import android.content.Intent
 import android.graphics.Bitmap
+import android.os.Parcelable
+import android.R.attr.data
+
+
 
 
 class AccountSettingsActivity : AppCompatActivity() {
@@ -52,6 +56,8 @@ class AccountSettingsActivity : AppCompatActivity() {
     lateinit var userAccount: UserAccount
     @Inject
     lateinit var uImageLoader: UniversalImageLoader
+
+    var bitmap: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,15 +133,17 @@ class AccountSettingsActivity : AppCompatActivity() {
         if (requestCode == PICK_PHOTO_CODE) {
             if (data != null) {
 
-                val bitmap: Bitmap
-                bitmap = data.extras!!.get("data") as Bitmap
-
                 val photoUri = data.data
                 // Do something with the photo based on Uri
                 val selectedImage = MediaStore.Images.Media.getBitmap(this.contentResolver, photoUri)
-                // Load the selected image into a preview
-                val ivPreview = profile_image
-                ivPreview.setImageBitmap(selectedImage)
+                Log.d(TAG, "onActivityResult: photo is: $photoUri , and $selectedImage")
+
+//                bitmap = data.extras!!.get("data") as Bitmap
+
+
+                firebaseFunctions.uploadNewPhoto(getString(R.string.profile_photo),
+                        null, 0, null, selectedImage)
+
             }
         }
     }

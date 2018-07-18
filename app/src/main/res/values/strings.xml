@@ -20,8 +20,11 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!--Profile Photo-->
+    <string name="profile_photo">profile_photo</string>
 
 
    <!--Other-->
     <string name="logout_fragment">logout_fragment</string>
+
 </resources>
