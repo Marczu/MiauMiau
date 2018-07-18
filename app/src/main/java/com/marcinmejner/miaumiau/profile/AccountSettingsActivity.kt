@@ -57,7 +57,7 @@ class AccountSettingsActivity : AppCompatActivity() {
         finishActivity()
         displayLogout()
         changeProfilePhoto()
-        permissionsCheck()
+
     }
 
     private fun initFirebaseFunctions() {
@@ -95,13 +95,11 @@ class AccountSettingsActivity : AppCompatActivity() {
 
         /*Change profile photo*/
         relLayout2_profile_photo.setOnClickListener {
-
+            Log.d(TAG, "changeProfilePhoto: attempt to veryfy permissions, is already granted, then change profile photo")
+            permissionsCheck()
         }
     }
 
-    private fun changeProfilePhoto() {
-
-    }
 
     override fun onBackPressed() {
         val count = fragmentManager.backStackEntryCount
