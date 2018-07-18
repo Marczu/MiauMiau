@@ -1,10 +1,14 @@
 package com.marcinmejner.miaumiau.utils
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.support.constraint.Constraints.TAG
 import android.util.Log
 import android.widget.Toast
+import com.google.android.gms.common.images.ImageManager
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -12,9 +16,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.OnProgressListener
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import com.marcinmejner.miaumiau.R
 import com.marcinmejner.miaumiau.models.UserAccount
+import com.marcinmejner.miaumiau.profile.AccountSettingsActivity
 
 class FirebaseFunctions(val context: Context) {
     private val TAG = "FirebaseFunctions"
@@ -135,5 +142,53 @@ class FirebaseFunctions(val context: Context) {
         return userAccount
     }
 
+    fun uploadNewPhoto(photoType: String, caption: String, imageCount: Int, imgUrl: String,
+                       bm: Bitmap?) {
+
+
+        Log.d(TAG, "uploadNewPhoto: uploaduje nowe zdjecie profilowe")
+
+
+        val user_id = FirebaseAuth.getInstance().currentUser!!.uid
+
+        val storageReference = mStorageReference
+                .child(FilePaths.FIREBASE_IMAGE_STORAGE + "/" + user_id + "/profile_photo")
+
+        //Konwertujemy image URL na bitmap
+       var bit = bm
+            bit = ImageManager.getBitmap(imgUrl)
+
+
+        val bytes = ImageManager.getBytesFromBitmap(bm, 100)
+
+        var uploadTask: UploadTask? = null
+        uploadTask = storageReference.putBytes(bytes)
+
+        uploadTask.addOnSuccessListener { taskSnapshot ->
+            val firebaseUrl = taskSnapshot.downloadUrl
+
+            Toast.makeText(mContex, "Photo upload success", Toast.LENGTH_SHORT).show()
+
+            //insert into user_account_settings node
+            setProfilePhoto(firebaseUrl!!.toString())
+
+            (mContex as AccountSettingsActivity).setViewPager(
+                    (mContex as AccountSettingsActivity).pagerAdapter
+                            .getFragmentNumber(mContex.getString(R.string.edit_profile_fragment))
+            )
+        }.addOnFailureListener {
+            Log.d(TAG, "onFailure: Photo upload failed")
+            Toast.makeText(mContex, "Photo upload failed", Toast.LENGTH_SHORT).show()
+        }.addOnProgressListener { taskSnapshot ->
+            val progress = (100 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toDouble()
+
+            if (progress - 15 > mPhotoUploadProgress) {
+                Toast.makeText(mContex, "Photo upload progress: " + String.format("%.0f", progress) + "%", Toast.LENGTH_SHORT).show()
+                mPhotoUploadProgress = progress
+            }
+            Log.d(TAG, "onProgress: upload progress: $progress %")
+        }
+
+    }
 
 }

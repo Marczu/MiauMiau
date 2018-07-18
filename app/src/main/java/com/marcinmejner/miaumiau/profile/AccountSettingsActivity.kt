@@ -25,11 +25,13 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import com.marcinmejner.miaumiau.utils.Permissions
+import android.provider.MediaStore
+import android.content.Intent
+import android.graphics.Bitmap
 
 
 class AccountSettingsActivity : AppCompatActivity() {
     private val TAG = "AccountSettingsActivity"
-
 
 
     //Firebase Auth
@@ -42,6 +44,8 @@ class AccountSettingsActivity : AppCompatActivity() {
     private var userID: String? = null
 
     private val VERIFY_PERMISSIONS_REQUEST = 1
+    private val PICK_PHOTO_CODE = 66
+
 
     //vars
     lateinit var fragmentManager: FragmentManager
@@ -56,7 +60,7 @@ class AccountSettingsActivity : AppCompatActivity() {
         setupFirebaseAuth()
         finishActivity()
         displayLogout()
-        changeProfilePhoto()
+
 
     }
 
@@ -96,7 +100,43 @@ class AccountSettingsActivity : AppCompatActivity() {
         /*Change profile photo*/
         relLayout2_profile_photo.setOnClickListener {
             Log.d(TAG, "changeProfilePhoto: attempt to veryfy permissions, is already granted, then change profile photo")
-            permissionsCheck()
+            if (checkPermissionsArray(Permissions.PERMISSIONS)) {
+                /*Working on profile photo*/
+                onPickPhoto()
+
+            } else {
+                veryfiPermissions(Permissions.PERMISSIONS)
+            }
+        }
+    }
+
+    /*Taking photo from storage*/
+    fun onPickPhoto() {
+        val intent = Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+
+        if (intent.resolveActivity(packageManager) != null) {
+            // Bring up gallery to select a photo
+            startActivityForResult(intent, PICK_PHOTO_CODE)
+            Log.d(TAG, "onPickPhoto: taking photo from storage")
+        }
+    }
+
+
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == PICK_PHOTO_CODE) {
+            if (data != null) {
+
+                val bitmap: Bitmap
+                bitmap = data.extras!!.get("data") as Bitmap
+
+                val photoUri = data.data
+                // Do something with the photo based on Uri
+                val selectedImage = MediaStore.Images.Media.getBitmap(this.contentResolver, photoUri)
+                // Load the selected image into a preview
+                val ivPreview = profile_image
+                ivPreview.setImageBitmap(selectedImage)
+            }
         }
     }
 
@@ -112,17 +152,6 @@ class AccountSettingsActivity : AppCompatActivity() {
 
     }
 
-    /*permissions check*/
-    fun permissionsCheck(){
-        if (checkPermissionsArray(Permissions.PERMISSIONS)) {
-
-            /*Dodajemy zdjecie*/
-
-
-        } else {
-            veryfiPermissions(Permissions.PERMISSIONS)
-        }
-    }
 
     /*Verify all permissions*/
     fun veryfiPermissions(permissions: Array<String>) {
