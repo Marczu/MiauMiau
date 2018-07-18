@@ -83,11 +83,15 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         val account = userAccount
         username.text = account?.username
 
+        uImageLoader.setImage(userAccount?.profile_photo, toolbar_profile_photo, "")
+
         /*Set nav Drawer profile*/
         val navigationView = findViewById<NavigationView>(R.id.nav_view1)
         val hView = navigationView.getHeaderView(0)
         hView.username_nav_drawer.text = account?.username
         hView.email_nav_drawer.text = account?.user_email
+        uImageLoader.setImage(userAccount?.profile_photo, hView.profile_photo_nav_drawer, "")
+
 
 
     }

@@ -98,10 +98,11 @@ class AccountSettingsActivity : AppCompatActivity() {
         ImageLoader.getInstance().init(uImageLoader.getConfig())
 
 
-        uImageLoader.setImage("", profile_image, "")
+        uImageLoader.setImage(userAccount.profile_photo, profile_image, "")
 
         username_et.setText(userAccount.username)
         email_et.setText(userAccount.user_email)
+        profile_image
 
         /*Change profile photo*/
         relLayout2_profile_photo.setOnClickListener {
@@ -137,9 +138,6 @@ class AccountSettingsActivity : AppCompatActivity() {
                 // Do something with the photo based on Uri
                 val selectedImage = MediaStore.Images.Media.getBitmap(this.contentResolver, photoUri)
                 Log.d(TAG, "onActivityResult: photo is: $photoUri , and $selectedImage")
-
-//                bitmap = data.extras!!.get("data") as Bitmap
-
 
                 firebaseFunctions.uploadNewPhoto(getString(R.string.profile_photo),
                         null, 0, null, selectedImage)
