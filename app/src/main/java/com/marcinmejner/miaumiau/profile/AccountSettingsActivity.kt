@@ -57,7 +57,6 @@ class AccountSettingsActivity : AppCompatActivity() {
     @Inject
     lateinit var uImageLoader: UniversalImageLoader
 
-    var bitmap: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +66,7 @@ class AccountSettingsActivity : AppCompatActivity() {
         finishActivity()
         displayLogout()
 
-
+        fragmentManager = supportFragmentManager
     }
 
     private fun initFirebaseFunctions() {
@@ -83,7 +82,7 @@ class AccountSettingsActivity : AppCompatActivity() {
     private fun displayLogout() {
         logout_editprofile.setOnClickListener {
             val fragment = SignOutFragment()
-            fragmentManager = supportFragmentManager
+
             val transaction = fragmentManager.beginTransaction()
                     .add(R.id.container, fragment, getString(R.string.logout_fragment))
                     .addToBackStack(getString(R.string.logout_fragment))

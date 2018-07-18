@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/chat_dark">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/main_chat_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/img_holder"/>
+
+        <TextView
+            android:id="@+id/chat_username"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/main_chat_image"
+            android:layout_width="wrap_content"
+            tools:text="Kaczusia"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/chat_timestamp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/chat_username"
+            android:textColor="@color/colorPrimary"
+            tools:text="11:37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/chat_message"
+            tools:text="test cos tam pisze sobie"
+            android:textColor="@color/message_color"
+            android:layout_toRightOf="@id/main_chat_image"
+            android:layout_below="@id/chat_username"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
