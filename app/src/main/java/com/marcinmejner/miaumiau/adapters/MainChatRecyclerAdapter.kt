@@ -1,7 +1,6 @@
 package com.marcinmejner.miaumiau.adapters
 
 import android.content.Context
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -30,30 +29,16 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        uImageLoader.setImage()
-
-        holder.profileImage
-
-        holder.notes.text = notesList[position].noteText
-
-        holder.fab.setOnClickListener {
-            Intent(context, EditActivity::class.java).apply {
-                this.putExtra(com.marcinmejner.notki.utils.NOTES_ID_KEY, notesList[position].id)
-                context.startActivity(this)
-            }
-        }
-
+        uImageLoader.setImage(messageList[position].profile_photo, holder.profileImage, "")
+        holder.username.text = messageList[position].username
+        holder.dateCreated.text = messageList[position].dateCreated
+        holder.chatMessage.text = messageList[position].chatMessage
     }
 
-
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
         val profileImage = view.main_chat_image
         val username = view.chat_username
         val dateCreated = view.chat_timestamp
         val chatMessage = view.chat_message
-
-
     }
 }

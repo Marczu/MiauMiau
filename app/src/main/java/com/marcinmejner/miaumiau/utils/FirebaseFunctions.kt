@@ -69,7 +69,7 @@ class FirebaseFunctions(val context: Context) {
 
                     } else {
                         Toast.makeText(context, "Rejestracja nieudana", Toast.LENGTH_SHORT).show()
-                        // If sign in fails, display a message to the user.
+                        // If sign in fails, display a chatMessage to the user.
                         Log.w(TAG, "createUserWithEmail:failure", task.exception)
 
                     }

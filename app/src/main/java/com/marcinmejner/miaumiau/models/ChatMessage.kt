@@ -4,7 +4,5 @@ data class ChatMessage(
         var username: String = "",
         var profile_photo: String = "",
         var dateCreated: String = "",
-        var message: String = ""
-
-) {
-}
+        var chatMessage: String = ""
+)
