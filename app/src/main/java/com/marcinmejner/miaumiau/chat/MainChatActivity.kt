@@ -49,7 +49,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     //vars
     private val contex = this@MainChatActivity
-    var chatMessages = ArrayList<ChatMessage>()
+    lateinit var chatMessages: ArrayList<ChatMessage>
     lateinit var chatAdapter: MainChatRecyclerAdapter
 
     //widgets
@@ -69,16 +69,28 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         initImageLoader()
         setupFirebaseAuth()
         initNavDrawer()
-        initRecyclerView()
+//        initRecyclerView()
     }
 
     private fun initRecyclerView() {
         recyclerView = recycler_view
+        recyclerView?.hasFixedSize()
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
 
         val divider = DividerItemDecoration(recyclerView.context, layoutManager.orientation)
         recyclerView.addItemDecoration(divider)
+
+
+
+//       val message = ChatMessage()
+//        message.profile_photo = account?.profile_photo
+//        message.dateCreated = "11:30"
+//        message.chatMessage = "testowa wiadomość"
+//        message.username = account?.username
+//
+//        chatMessages.add(message)
+        chatAdapter = MainChatRecyclerAdapter(chatMessages, this)
 
     }
 
@@ -106,6 +118,41 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         hView.username_nav_drawer.text = account?.username
         hView.email_nav_drawer.text = account?.user_email
         uImageLoader.setImage(userAccount?.profile_photo, hView.profile_photo_nav_drawer, "")
+
+
+
+        var message = ChatMessage()
+        var message2 = ChatMessage()
+        var message3 = ChatMessage()
+        message.profile_photo = account?.profile_photo!!
+        message.dateCreated = "11:30"
+        message.chatMessage = "testowa wiadomość, jestem kaczusią i kocham mojego kotka miauuuuuuuuuuuuuuuu"
+        message.username = account.username
+
+        message2.profile_photo = account?.profile_photo!!
+        message2.dateCreated = "12:48"
+        message2.chatMessage = "kolejna wiadomość"
+        message2.username = account.username
+
+        message3.profile_photo = account?.profile_photo!!
+        message3.dateCreated = "12:48"
+        message3.chatMessage = "kolejna wiadomość"
+        message3.username = account.username
+
+
+
+        chatMessages = ArrayList()
+        chatMessages.add(message)
+        chatMessages.add(message2)
+        chatMessages.add(message3)
+
+
+        initRecyclerView()
+
+        recyclerView.adapter = chatAdapter
+//        chatAdapter.notifyDataSetChanged()
+
+
     }
 
     private fun initNavDrawer() {
