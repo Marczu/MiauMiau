@@ -14,6 +14,7 @@
         android:layout_height="match_parent">
 
 
+        <!--Toolbar-->
         <RelativeLayout
             android:id="@+id/relLayout1"
             android:layout_width="match_parent"
@@ -24,6 +25,7 @@
 
         </RelativeLayout>
 
+        <!--Main Chat-->
         <RelativeLayout
             android:id="@+id/relLayout_main_chat_content"
             android:background="@color/chat_dark"
@@ -32,8 +34,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               >
+
+
+            </android.support.v7.widget.RecyclerView>
+
+
         </RelativeLayout>
 
+
+        <!--Send Message-->
         <RelativeLayout
             android:id="@+id/relLayout_bottom"
             android:background="@drawable/dark_border_top"

@@ -6,6 +6,9 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
@@ -13,30 +16,27 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.marcinmejner.miaumiau.R
+import com.marcinmejner.miaumiau.adapters.MainChatRecyclerAdapter
 import com.marcinmejner.miaumiau.base.BaseActivity
 import com.marcinmejner.miaumiau.login.LoginActivity
+import com.marcinmejner.miaumiau.models.ChatMessage
 import com.marcinmejner.miaumiau.models.UserAccount
 import com.marcinmejner.miaumiau.profile.AccountSettingsActivity
 import com.marcinmejner.miaumiau.utils.FirebaseFunctions
 import com.marcinmejner.miaumiau.utils.UniversalImageLoader
 import com.nostra13.universalimageloader.core.ImageLoader
-import kotlinx.android.synthetic.main.activity_account_settings.*
 import kotlinx.android.synthetic.main.activity_chat.*
-import kotlinx.android.synthetic.main.nav_header_main_chat.*
 import kotlinx.android.synthetic.main.nav_header_main_chat.view.*
-
 import kotlinx.android.synthetic.main.snippet_top_profilebar.*
 import javax.inject.Inject
-import android.widget.TextView
-
 
 
 class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private val TAG = "MainChatActivity"
 
-    private val contex = this@MainChatActivity
 
-    //Firebase Auth
+
+    //Firebase
     private var mAuth: FirebaseAuth? = null
     private var mAuthStateListener: FirebaseAuth.AuthStateListener? = null
     private var mFirebaseDatabase: FirebaseDatabase? = null
@@ -47,6 +47,14 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     @Inject
     lateinit var uImageLoader: UniversalImageLoader
 
+    //vars
+    private val contex = this@MainChatActivity
+    var chatMessages = ArrayList<ChatMessage>()
+    lateinit var chatAdapter: MainChatRecyclerAdapter
+
+    //widgets
+    lateinit var recyclerView: RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -54,16 +62,23 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         init()
 
         navigateToEditProfile()
-
     }
-
-
 
     private fun init() {
         initDagger()
         initImageLoader()
         setupFirebaseAuth()
         initNavDrawer()
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        recyclerView = recycler_view
+        val layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
+
+        val divider = DividerItemDecoration(recyclerView.context, layoutManager.orientation)
+        recyclerView.addItemDecoration(divider)
 
     }
 
@@ -91,9 +106,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         hView.username_nav_drawer.text = account?.username
         hView.email_nav_drawer.text = account?.user_email
         uImageLoader.setImage(userAccount?.profile_photo, hView.profile_photo_nav_drawer, "")
-
-
-
     }
 
     private fun initNavDrawer() {
@@ -107,8 +119,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         burger_menu.setOnClickListener {
             drawer_layout1.openDrawer(Gravity.START)
         }
-
-
     }
 
     private fun navigateToEditProfile() {
@@ -147,7 +157,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
             }
             R.id.nav_send -> {
-
             }
         }
 
@@ -165,8 +174,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             val intent = Intent(contex, LoginActivity::class.java)
             startActivity(intent)
         }
-
-
     }
 
     private fun setupFirebaseAuth() {
@@ -174,7 +181,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         mAuth = FirebaseAuth.getInstance()
         mFirebaseDatabase = FirebaseDatabase.getInstance()
         myRef = mFirebaseDatabase?.reference
-
 
         mAuthStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val user = firebaseAuth.currentUser
@@ -192,18 +198,12 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 /*Getting user data from database*/
                 setProfileWidgets(mFirebaseFunctions?.getUserAccount(dataSnapshot))
-
-                /*Pozyskiwanie obrazków usera z bazy danych*/
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-
             }
         })
     }
-
-
 
     public override fun onStart() {
         super.onStart()
@@ -218,5 +218,4 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             mAuth?.removeAuthStateListener(mAuthStateListener!!)
         }
     }
-
 }
