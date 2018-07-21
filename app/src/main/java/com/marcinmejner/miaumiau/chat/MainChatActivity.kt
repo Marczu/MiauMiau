@@ -22,6 +22,7 @@ import com.marcinmejner.miaumiau.login.LoginActivity
 import com.marcinmejner.miaumiau.models.ChatMessage
 import com.marcinmejner.miaumiau.models.UserAccount
 import com.marcinmejner.miaumiau.profile.AccountSettingsActivity
+import com.marcinmejner.miaumiau.utils.DateManipulations
 import com.marcinmejner.miaumiau.utils.FirebaseFunctions
 import com.marcinmejner.miaumiau.utils.UniversalImageLoader
 import com.nostra13.universalimageloader.core.ImageLoader
@@ -33,7 +34,6 @@ import javax.inject.Inject
 
 class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private val TAG = "MainChatActivity"
-
 
 
     //Firebase
@@ -51,6 +51,8 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     private val contex = this@MainChatActivity
     lateinit var chatMessages: ArrayList<ChatMessage>
     lateinit var chatAdapter: MainChatRecyclerAdapter
+
+    var account: UserAccount? = null
 
     //widgets
     lateinit var recyclerView: RecyclerView
@@ -74,13 +76,11 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     private fun initRecyclerView() {
         recyclerView = recycler_view
-        recyclerView?.hasFixedSize()
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
 
         val divider = DividerItemDecoration(recyclerView.context, layoutManager.orientation)
         recyclerView.addItemDecoration(divider)
-
 
 
 //       val message = ChatMessage()
@@ -107,7 +107,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         Log.d(TAG, "setProfileWidgets: ustawianie wigdetów z uzyciem bazy z firebase" + userAccount.toString())
         Log.d(TAG, "setProfileWidgets: ustawianie wigdetów z uzyciem bazy z firebase" + userAccount?.username)
 
-        val account = userAccount
+        account = userAccount
         username.text = account?.username
 
         uImageLoader.setImage(userAccount?.profile_photo, toolbar_profile_photo, "")
@@ -120,24 +120,23 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         uImageLoader.setImage(userAccount?.profile_photo, hView.profile_photo_nav_drawer, "")
 
 
-
         var message = ChatMessage()
         var message2 = ChatMessage()
         var message3 = ChatMessage()
-        message.profile_photo = account?.profile_photo!!
-        message.dateCreated = "11:30"
-        message.chatMessage = "testowa wiadomość, jestem kaczusią i kocham mojego kotka miauuuuuuuuuuuuuuuu"
-        message.username = account.username
-
-        message2.profile_photo = account?.profile_photo!!
-        message2.dateCreated = "12:48"
-        message2.chatMessage = "kolejna wiadomość"
-        message2.username = account.username
-
-        message3.profile_photo = account?.profile_photo!!
-        message3.dateCreated = "12:48"
-        message3.chatMessage = "kolejna wiadomość"
-        message3.username = account.username
+//        message.profile_photo = account?.profile_photo!!
+//        message.dateCreated = "11:30"
+//        message.chatMessage = "testowa wiadomość, j"
+//        message.username = account!!.username
+//
+//        message2.profile_photo = account?.profile_photo!!
+//        message2.dateCreated = "12:48"
+//        message2.chatMessage = "kolejna wiadomość"
+//        message2.username = account!!.username
+//
+//        message3.profile_photo = account?.profile_photo!!
+//        message3.dateCreated = "12:48"
+//        message3.chatMessage = "kolejna wiadomość"
+//        message3.username = account!!.username
 
 
 
@@ -155,7 +154,54 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     }
 
+    /*Adding single message to databse*/
+    private fun addNewComment() {
 
+
+        chat_send_message_iv.setOnClickListener {
+
+            val messageId = myRef?.push()?.key
+            val timeStamp = DateManipulations.getTimestamp()
+
+            val message = ChatMessage()
+            message.username = account?.username!!
+            message.profile_photo = account?.profile_photo!!
+            message.chat_message = chat_message_et.text.toString()
+            message.date_created = timeStamp
+            message.user_id = FirebaseAuth.getInstance().currentUser!!.uid
+            message.message_id = messageId!!
+
+
+            /* Insert into message Node */
+            myRef?.child(getString(R.string.dbname_messages))
+                    ?.child(message.message_id)
+                    ?.child(getString(R.string.dbname_msg_chatmessage))
+                    ?.setValue(message.chat_message)
+
+            myRef?.child(getString(R.string.dbname_messages))
+                    ?.child(message.message_id)
+                    ?.child(getString(R.string.dbname_msg_username))
+                    ?.setValue(message.username)
+
+            myRef?.child(getString(R.string.dbname_messages))
+                    ?.child(message.message_id)
+                    ?.child(getString(R.string.dbname_msg_profile_photo))
+                    ?.setValue(message.profile_photo)
+
+            myRef?.child(getString(R.string.dbname_messages))
+                    ?.child(message.message_id)
+                    ?.child(getString(R.string.dbname_msg_date_created))
+                    ?.setValue(message.date_created)
+
+            myRef?.child(getString(R.string.dbname_messages))
+                    ?.child(message.message_id)
+                    ?.child(getString(R.string.dbname_msg_user_id))
+                    ?.setValue(message.user_id)
+
+        }
+
+
+    }
 
     private fun initNavDrawer() {
         val toggle = ActionBarDrawerToggle(
@@ -246,19 +292,23 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         myRef?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 /*Getting user data from database*/
-                setProfileWidgets(mFirebaseFunctions?.getUserAccount(dataSnapshot))
+                setProfileWidgets(mFirebaseFunctions.getUserAccount(dataSnapshot))
+
+
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
             }
         })
+
+        addNewComment()
     }
 
     public override fun onStart() {
         super.onStart()
         mAuth?.addAuthStateListener(mAuthStateListener!!)
 
-        checkCurrentUser(mAuth?.getCurrentUser())
+        checkCurrentUser(mAuth?.currentUser)
     }
 
     public override fun onStop() {

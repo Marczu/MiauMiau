@@ -74,11 +74,11 @@
                 android:textSize="14sp"
                 android:background="@null"
                 android:textColorHint="@color/message_color"
-                android:layout_toLeftOf="@+id/chat_send_iv"
+                android:layout_toLeftOf="@+id/chat_send_message_iv"
                 android:hint="Napisz wiadomość"/>
 
             <ImageView
-                android:id="@+id/chat_send_iv"
+                android:id="@+id/chat_send_message_iv"
                 android:background="@drawable/ic_send_black_24dp"
                 android:layout_width="30dp"
                 android:layout_marginRight="10dp"

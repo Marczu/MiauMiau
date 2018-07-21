@@ -31,8 +31,8 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         uImageLoader.setImage(messageList[position].profile_photo, holder.profileImage, "")
         holder.username.text = messageList[position].username
-        holder.dateCreated.text = messageList[position].dateCreated
-        holder.chatMessage.text = messageList[position].chatMessage
+        holder.dateCreated.text = messageList[position].date_created
+        holder.chatMessage.text = messageList[position].chat_message
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

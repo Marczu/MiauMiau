@@ -11,6 +11,14 @@
     <string name="field_email">email</string>
     <string name="field_user_id">user_id</string>
 
+    <!--Firebase Message Fields-->
+    <string name="dbname_messages">messages</string>
+    <string name="dbname_msg_chatmessage">chat_message</string>
+    <string name="dbname_msg_username">username</string>
+    <string name="dbname_msg_profile_photo">profile_photo</string>
+    <string name="dbname_msg_date_created">date_created</string>
+    <string name="dbname_msg_user_id">user_id</string>
+
 
     <string name="title_activity_main_cha">MainCha</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -20,11 +28,14 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+
+
     <!--Profile Photo-->
     <string name="profile_photo">profile_photo</string>
 
 
    <!--Other-->
     <string name="logout_fragment">logout_fragment</string>
+
 
 </resources>
