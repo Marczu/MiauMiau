@@ -74,6 +74,7 @@
                 android:textSize="14sp"
                 android:background="@null"
                 android:textColorHint="@color/message_color"
+                android:layout_toLeftOf="@+id/chat_send_iv"
                 android:hint="Napisz wiadomość"/>
 
             <ImageView
@@ -83,7 +84,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_height="30dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:layout_centerVertical="true"/>
 
         </RelativeLayout>
