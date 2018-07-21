@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.marcinmejner.miaumiau.R
+import com.marcinmejner.miaumiau.R.id.drawer_layout1
+import com.marcinmejner.miaumiau.R.id.nav_view1
 import com.marcinmejner.miaumiau.adapters.MainChatRecyclerAdapter
 import com.marcinmejner.miaumiau.base.BaseActivity
 import com.marcinmejner.miaumiau.login.LoginActivity
@@ -157,9 +159,8 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     /*Adding single message to databse*/
     private fun addNewComment() {
 
-
+        /*sending message*/
         chat_send_message_iv.setOnClickListener {
-
             val messageId = myRef?.push()?.key
             val timeStamp = DateManipulations.getTimestamp()
 
@@ -171,8 +172,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             message.user_id = FirebaseAuth.getInstance().currentUser!!.uid
             message.message_id = messageId!!
 
-
-            /* Insert into message Node */
+            /* Inserting into message Node */
             myRef?.child(getString(R.string.dbname_messages))
                     ?.child(message.message_id)
                     ?.child(getString(R.string.dbname_msg_chatmessage))
@@ -197,8 +197,10 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                     ?.child(message.message_id)
                     ?.child(getString(R.string.dbname_msg_user_id))
                     ?.setValue(message.user_id)
-
         }
+    }
+
+    fun setMessages(userAccount: UserAccount?) {
 
 
     }
@@ -293,7 +295,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 /*Getting user data from database*/
                 setProfileWidgets(mFirebaseFunctions.getUserAccount(dataSnapshot))
-
+                setMessages()
 
             }
 

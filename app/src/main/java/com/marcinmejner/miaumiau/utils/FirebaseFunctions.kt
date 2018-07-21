@@ -139,6 +139,14 @@ class FirebaseFunctions(val context: Context) {
         return userAccount
     }
 
+    fun getMessages(dataSnapshot: DataSnapshot): ChatMessage{
+        val chatMessage = ChatMessage()
+
+
+
+
+    }
+
     fun uploadNewPhoto(photoType: String, caption: String?, imageCount: Int?, imgUrl: String?,
                        bm: Bitmap?) {
 
