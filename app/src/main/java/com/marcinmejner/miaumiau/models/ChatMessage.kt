@@ -8,12 +8,10 @@ data class ChatMessage(
         var user_id: String = "",
         var profile_photo: String = "",
         var date_created: String = "",
-        var chat_message: String = "",
-        var message_id: String = ""
+        var chat_message: String = ""
+//        var message_id: String = ""
 ) : Parcelable {
-
     constructor(parcel: Parcel) : this(
-            parcel.readString(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
@@ -27,7 +25,6 @@ data class ChatMessage(
         parcel.writeString(profile_photo)
         parcel.writeString(date_created)
         parcel.writeString(chat_message)
-        parcel.writeString(message_id)
     }
 
     override fun describeContents(): Int {
@@ -44,3 +41,4 @@ data class ChatMessage(
         }
     }
 }
+

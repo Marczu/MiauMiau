@@ -31,6 +31,8 @@ import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.nav_header_main_chat.view.*
 import kotlinx.android.synthetic.main.snippet_top_profilebar.*
+import org.w3c.dom.Comment
+import java.util.HashMap
 import javax.inject.Inject
 
 
@@ -63,6 +65,8 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+        chatMessages = ArrayList()
+
         init()
 
         navigateToEditProfile()
@@ -73,6 +77,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         initImageLoader()
         setupFirebaseAuth()
         initNavDrawer()
+        addNewComment()
 //        initRecyclerView()
     }
 
@@ -122,9 +127,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         uImageLoader.setImage(userAccount?.profile_photo, hView.profile_photo_nav_drawer, "")
 
 
-        var message = ChatMessage()
-        var message2 = ChatMessage()
-        var message3 = ChatMessage()
 //        message.profile_photo = account?.profile_photo!!
 //        message.dateCreated = "11:30"
 //        message.chatMessage = "testowa wiadomość, j"
@@ -142,10 +144,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
 
 
-        chatMessages = ArrayList()
-        chatMessages.add(message)
-        chatMessages.add(message2)
-        chatMessages.add(message3)
 
 
         initRecyclerView()
@@ -170,39 +168,37 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             message.chat_message = chat_message_et.text.toString()
             message.date_created = timeStamp
             message.user_id = FirebaseAuth.getInstance().currentUser!!.uid
-            message.message_id = messageId!!
+//            message.message_id = messageId!!
 
             /* Inserting into message Node */
+
+
+
             myRef?.child(getString(R.string.dbname_messages))
-                    ?.child(message.message_id)
+                    ?.child(messageId)
                     ?.child(getString(R.string.dbname_msg_chatmessage))
                     ?.setValue(message.chat_message)
 
             myRef?.child(getString(R.string.dbname_messages))
-                    ?.child(message.message_id)
+                    ?.child(messageId)
                     ?.child(getString(R.string.dbname_msg_username))
                     ?.setValue(message.username)
 
             myRef?.child(getString(R.string.dbname_messages))
-                    ?.child(message.message_id)
+                    ?.child(messageId)
                     ?.child(getString(R.string.dbname_msg_profile_photo))
                     ?.setValue(message.profile_photo)
 
             myRef?.child(getString(R.string.dbname_messages))
-                    ?.child(message.message_id)
+                    ?.child(messageId)
                     ?.child(getString(R.string.dbname_msg_date_created))
                     ?.setValue(message.date_created)
 
             myRef?.child(getString(R.string.dbname_messages))
-                    ?.child(message.message_id)
+                    ?.child(messageId)
                     ?.child(getString(R.string.dbname_msg_user_id))
                     ?.setValue(message.user_id)
         }
-    }
-
-    fun setMessages(userAccount: UserAccount?) {
-
-
     }
 
     private fun initNavDrawer() {
@@ -281,7 +277,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         mAuthStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val user = firebaseAuth.currentUser
-
             checkCurrentUser(user)
 
             if (user != null) {
@@ -295,16 +290,42 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 /*Getting user data from database*/
                 setProfileWidgets(mFirebaseFunctions.getUserAccount(dataSnapshot))
-                setMessages()
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
             }
         })
 
-        addNewComment()
+        /*Getting new data from message node*/
+
+
+
+
+
+        myRef?.child(contex.getString(R.string.dbname_messages))
+                ?.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        chatMessages.clear()
+
+                        Log.d(TAG, "onDataChange: ilość: ${dataSnapshot.getChildrenCount()}")
+                        for (singleSnapshot in dataSnapshot.children) {
+                            var post = singleSnapshot.getValue(ChatMessage::class.java)
+                            var message = post?.chat_message
+                            Log.d(TAG, "onDataChange: $message")
+                            Log.d(TAG, "onDataChange: ${post?.date_created}")
+                            Log.d(TAG, "onDataChange: ${post?.user_id}")
+
+                            chatMessages.add(post!!)
+
+                        }
+                    }
+
+                    override fun onCancelled(databaseError: DatabaseError) {
+                        Log.d(TAG, "onCancelled: querry canceled")
+                    }
+                })
     }
+
 
     public override fun onStart() {
         super.onStart()

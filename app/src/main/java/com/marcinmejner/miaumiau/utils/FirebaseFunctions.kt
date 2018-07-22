@@ -139,13 +139,6 @@ class FirebaseFunctions(val context: Context) {
         return userAccount
     }
 
-    fun getMessages(dataSnapshot: DataSnapshot): ChatMessage{
-        val chatMessage = ChatMessage()
-
-
-
-
-    }
 
     fun uploadNewPhoto(photoType: String, caption: String?, imageCount: Int?, imgUrl: String?,
                        bm: Bitmap?) {
@@ -159,7 +152,6 @@ class FirebaseFunctions(val context: Context) {
 
         val storageReference = mStorageReference
                 .child(FilePaths.FIREBASE_IMAGE_STORAGE + "/" + user_id + "/profile_photo")
-
 
 
         val bytes = ImageManipulator.getBytesFromBitmap(bm!!, 100)
@@ -199,7 +191,6 @@ class FirebaseFunctions(val context: Context) {
                 .setValue(url)
 
     }
-
 
 
 }
