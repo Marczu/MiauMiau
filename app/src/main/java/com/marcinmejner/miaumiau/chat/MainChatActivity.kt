@@ -82,11 +82,10 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     private fun initRecyclerView() {
         recyclerView = recycler_view
+        recyclerView.hasFixedSize()
         val layoutManager = LinearLayoutManager(this)
+        layoutManager.stackFromEnd = true
         recyclerView.layoutManager = layoutManager
-
-        val divider = DividerItemDecoration(recyclerView.context, layoutManager.orientation)
-        recyclerView.addItemDecoration(divider)
 
         chatAdapter = MainChatRecyclerAdapter(chatMessages, this)
 
@@ -131,7 +130,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         /*sending message*/
         chat_send_message_iv.setOnClickListener {
             val messageId = myRef?.push()?.key
-            val timeStamp = DateManipulations.getTimestamp()
+            val timeStamp = DateManipulations.getMinutesAndHours()
 
             val message = ChatMessage()
             message.username = account?.username!!
@@ -273,10 +272,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         /*Getting new data from message node*/
 
-
-
-
-
         myRef?.child(contex.getString(R.string.dbname_messages))
                 ?.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -291,7 +286,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                             Log.d(TAG, "onDataChange: ${post?.user_id}")
 
                             chatMessages.add(post!!)
-
+                            recycler_view.scrollToPosition(chatMessages.size-1)
                         }
                     }
 

@@ -21,6 +21,7 @@
         <RelativeLayout
             android:id="@+id/username_and_timestamp_relLayout"
             android:layout_toRightOf="@id/main_chat_image"
+            android:layout_alignTop="@+id/main_chat_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
