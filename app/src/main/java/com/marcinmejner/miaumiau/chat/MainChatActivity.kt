@@ -78,7 +78,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         setupFirebaseAuth()
         initNavDrawer()
         addNewComment()
-//        initRecyclerView()
     }
 
     private fun initRecyclerView() {
@@ -89,14 +88,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         val divider = DividerItemDecoration(recyclerView.context, layoutManager.orientation)
         recyclerView.addItemDecoration(divider)
 
-
-//       val message = ChatMessage()
-//        message.profile_photo = account?.profile_photo
-//        message.dateCreated = "11:30"
-//        message.chatMessage = "testowa wiadomość"
-//        message.username = account?.username
-//
-//        chatMessages.add(message)
         chatAdapter = MainChatRecyclerAdapter(chatMessages, this)
 
     }
@@ -126,26 +117,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         hView.email_nav_drawer.text = account?.user_email
         uImageLoader.setImage(userAccount?.profile_photo, hView.profile_photo_nav_drawer, "")
 
-
-//        message.profile_photo = account?.profile_photo!!
-//        message.dateCreated = "11:30"
-//        message.chatMessage = "testowa wiadomość, j"
-//        message.username = account!!.username
-//
-//        message2.profile_photo = account?.profile_photo!!
-//        message2.dateCreated = "12:48"
-//        message2.chatMessage = "kolejna wiadomość"
-//        message2.username = account!!.username
-//
-//        message3.profile_photo = account?.profile_photo!!
-//        message3.dateCreated = "12:48"
-//        message3.chatMessage = "kolejna wiadomość"
-//        message3.username = account!!.username
-
-
-
-
-
         initRecyclerView()
 
         recyclerView.adapter = chatAdapter
@@ -172,32 +143,36 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
             /* Inserting into message Node */
 
+            if(message.chat_message != ""){
 
+                myRef?.child(getString(R.string.dbname_messages))
+                        ?.child(messageId)
+                        ?.child(getString(R.string.dbname_msg_chatmessage))
+                        ?.setValue(message.chat_message)
 
-            myRef?.child(getString(R.string.dbname_messages))
-                    ?.child(messageId)
-                    ?.child(getString(R.string.dbname_msg_chatmessage))
-                    ?.setValue(message.chat_message)
+                myRef?.child(getString(R.string.dbname_messages))
+                        ?.child(messageId)
+                        ?.child(getString(R.string.dbname_msg_username))
+                        ?.setValue(message.username)
 
-            myRef?.child(getString(R.string.dbname_messages))
-                    ?.child(messageId)
-                    ?.child(getString(R.string.dbname_msg_username))
-                    ?.setValue(message.username)
+                myRef?.child(getString(R.string.dbname_messages))
+                        ?.child(messageId)
+                        ?.child(getString(R.string.dbname_msg_profile_photo))
+                        ?.setValue(message.profile_photo)
 
-            myRef?.child(getString(R.string.dbname_messages))
-                    ?.child(messageId)
-                    ?.child(getString(R.string.dbname_msg_profile_photo))
-                    ?.setValue(message.profile_photo)
+                myRef?.child(getString(R.string.dbname_messages))
+                        ?.child(messageId)
+                        ?.child(getString(R.string.dbname_msg_date_created))
+                        ?.setValue(message.date_created)
 
-            myRef?.child(getString(R.string.dbname_messages))
-                    ?.child(messageId)
-                    ?.child(getString(R.string.dbname_msg_date_created))
-                    ?.setValue(message.date_created)
+                myRef?.child(getString(R.string.dbname_messages))
+                        ?.child(messageId)
+                        ?.child(getString(R.string.dbname_msg_user_id))
+                        ?.setValue(message.user_id)
 
-            myRef?.child(getString(R.string.dbname_messages))
-                    ?.child(messageId)
-                    ?.child(getString(R.string.dbname_msg_user_id))
-                    ?.setValue(message.user_id)
+                chat_message_et.setText("")
+
+            }
         }
     }
 

@@ -19,39 +19,40 @@
             android:src="@drawable/img_holder"/>
 
         <RelativeLayout
+            android:id="@+id/username_and_timestamp_relLayout"
+            android:layout_toRightOf="@id/main_chat_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/chat_username"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                tools:text="Kaczusia"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content" />
 
+            <TextView
+                android:id="@+id/chat_timestamp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/chat_username"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp"
+                tools:text="11:37"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/chat_username"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/main_chat_image"
-            android:layout_width="wrap_content"
-            tools:text="Kaczusia"
-            android:textColor="@color/white"
-            android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/chat_timestamp"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/chat_username"
-
-            android:textColor="@color/colorPrimary"
-            android:textSize="12sp"
-            tools:text="11:37"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/chat_message"
             tools:text="test cos tam pisze sobie"
             android:textColor="@color/message_color"
             android:layout_toRightOf="@id/main_chat_image"
-            android:layout_below="@id/chat_username"
+            android:layout_below="@id/username_and_timestamp_relLayout"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
