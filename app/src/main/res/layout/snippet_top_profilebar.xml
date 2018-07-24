@@ -6,7 +6,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/chat_dark">
+        android:background="@drawable/dark_border_bottom2">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/profileToolbar"
