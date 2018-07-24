@@ -5,15 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="41dp"
+    android:background="@color/chat_dark"
     tools:context=".login.LoginActivity">
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/ed_layout1"
+        android:textColorHint="@color/grey"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/user_email_ed"
+            android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
@@ -25,33 +28,33 @@
         android:id="@+id/ed_layout2"
         android:layout_below="@+id/ed_layout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/grey"
+        >
 
     <EditText
         android:id="@+id/user_passowrd_ed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:inputType="textPassword"
         android:hint="Hasło" />
 
     </android.support.design.widget.TextInputLayout>
 
 
+
+
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/login_btn"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/white_rounded_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ed_layout2"
-        android:text="Login"
+        android:text="Zaloguj się"
         />
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/register_new_user_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_below="@id/login_btn"
-        android:text="Register New User" />
 
     <ProgressBar
         android:id="@+id/login_progresbar"
@@ -59,6 +62,29 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/acc_question_tv"
+        android:layout_below="@id/login_btn"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/grey"
+        android:textSize="11sp"
+        android:layout_centerHorizontal="true"
+        android:text="Nie posiadasz konta?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/register_new_user_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_rounded_button"
+
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/acc_question_tv"
+        android:text="Stwórz nowe konto" />
+
+
 
 
 </RelativeLayout>
