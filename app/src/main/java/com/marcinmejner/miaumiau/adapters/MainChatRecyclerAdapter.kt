@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.auth.FirebaseAuth
 import com.marcinmejner.miaumiau.R
 import com.marcinmejner.miaumiau.models.ChatMessage
 import com.marcinmejner.miaumiau.utils.UniversalImageLoader
@@ -14,9 +15,11 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
     private val TAG = "MainChatRecyclerAdapter"
 
     var uImageLoader: UniversalImageLoader
+    private val mAuth: FirebaseAuth
 
     init {
         uImageLoader = UniversalImageLoader(context)
+        mAuth = FirebaseAuth.getInstance()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,10 +32,22 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        uImageLoader.setImage(messageList[position].profile_photo, holder.profileImage, "")
-        holder.username.text = messageList[position].username
-        holder.dateCreated.text = messageList[position].date_created
-        holder.chatMessage.text = messageList[position].chat_message
+        val userId = messageList[position].user_id
+        val currentUser = mAuth.currentUser?.uid
+        if(userId == currentUser){
+            uImageLoader.setImage(messageList[position].profile_photo, holder.profileImage, "")
+            holder.username.text = messageList[position].username
+            holder.dateCreated.text = messageList[position].date_created
+            holder.chatMessage.text = messageList[position].chat_message
+        }else{
+
+            holder.profileImage.
+        }
+
+
+
+
+
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
