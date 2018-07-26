@@ -39,7 +39,6 @@ import javax.inject.Inject
 class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private val TAG = "MainChatActivity"
 
-
     //Firebase
     private var mAuth: FirebaseAuth? = null
     private var mAuthStateListener: FirebaseAuth.AuthStateListener? = null
@@ -88,7 +87,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         recyclerView.layoutManager = layoutManager
 
         chatAdapter = MainChatRecyclerAdapter(chatMessages, this)
-
     }
 
     private fun initImageLoader() {
@@ -98,7 +96,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     private fun initDagger() {
         BaseActivity.component.inject(this)
     }
-
 
     private fun setProfileWidgets(userAccount: UserAccount?) {
         Log.d(TAG, "setProfileWidgets: ustawianie wigdetów z uzyciem bazy z firebase" + userAccount.toString())
@@ -119,9 +116,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         initRecyclerView()
 
         recyclerView.adapter = chatAdapter
-//        chatAdapter.notifyDataSetChanged()
-
-
     }
 
     /*Adding single message to databse*/
@@ -138,11 +132,9 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             message.chat_message = chat_message_et.text.toString()
             message.date_created = timeStamp
             message.user_id = FirebaseAuth.getInstance().currentUser!!.uid
-//            message.message_id = messageId!!
 
             /* Inserting into message Node */
-
-            if(message.chat_message != ""){
+            if (message.chat_message != "") {
 
                 myRef?.child(getString(R.string.dbname_messages))
                         ?.child(messageId)
@@ -170,7 +162,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                         ?.setValue(message.user_id)
 
                 chat_message_et.setText("")
-
             }
         }
     }
@@ -195,7 +186,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             }
         }
     }
-
 
     override fun onBackPressed() {
         if (drawer_layout1.isDrawerOpen(GravityCompat.START)) {
@@ -226,7 +216,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             R.id.nav_send -> {
             }
         }
-
         drawer_layout1.closeDrawer(GravityCompat.START)
         return true
     }
@@ -234,7 +223,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     /*
         ------------------------------FIREBASE -----------------------------------------
     */
-
     private fun checkCurrentUser(user: FirebaseUser?) {
         Log.d(TAG, "checkCurrentUser: checking if user is logged in")
         if (user == null) {
@@ -260,7 +248,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 Log.d(TAG, "onAuthStateChanged: user signed_out")
             }
         }
-
         myRef?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 /*Getting user data from database*/
@@ -272,7 +259,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         })
 
         /*Getting new data from message node*/
-
         myRef?.child(contex.getString(R.string.dbname_messages))
                 ?.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -287,7 +273,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                             Log.d(TAG, "onDataChange: ${post?.user_id}")
 
                             chatMessages.add(post!!)
-                            recycler_view.scrollToPosition(chatMessages.size-1)
+                            recycler_view.scrollToPosition(chatMessages.size - 1)
                         }
                     }
 

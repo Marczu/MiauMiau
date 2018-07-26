@@ -52,8 +52,6 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
 
             showOtherUser(holder)
         }
-
-
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -82,7 +80,7 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
         holder.chatMessageLeft.visibility = View.GONE
     }
 
-    fun showOtherUser(holder: ViewHolder){
+    private fun showOtherUser(holder: ViewHolder){
         holder.profileImageLeft.visibility = View.VISIBLE
         holder.usernameLeft.visibility = View.VISIBLE
         holder.dateCreatedLeft.visibility = View.VISIBLE

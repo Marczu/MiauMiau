@@ -39,7 +39,6 @@ class SignOutFragment : Fragment() {
 
             activity!!.finish()
         }
-
         return view
     }
 

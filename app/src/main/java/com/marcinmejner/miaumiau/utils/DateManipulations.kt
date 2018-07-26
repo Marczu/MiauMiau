@@ -18,5 +18,4 @@ object DateManipulations {
 
         return sdf.format(Date())
     }
-
 }

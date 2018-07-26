@@ -27,7 +27,6 @@ class LoginActivity : AppCompatActivity() {
     lateinit var progressBar: ProgressBar
     lateinit var loginBtn: Button
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -35,7 +34,6 @@ class LoginActivity : AppCompatActivity() {
         setupFirebaseAuth()
 
         init()
-
     }
 
     fun init() {
@@ -58,7 +56,6 @@ class LoginActivity : AppCompatActivity() {
     /*--------------------------------------------------------------------------------
       ------------------------------FIREBASE -----------------------------------------
       --------------------------------------------------------------------------------*/
-
     private fun initLogin() {
 
         loginBtn.setOnClickListener {
@@ -86,14 +83,13 @@ class LoginActivity : AppCompatActivity() {
                                 Toast.makeText(this@LoginActivity, "Nie udało sie zalogować.",
                                         Toast.LENGTH_SHORT).show()
                                 progressBar.visibility = View.GONE
-
                             }
                         }
             }
         }
     }
 
-    fun initRegisterNewUser(){
+    private fun initRegisterNewUser(){
         register_new_user_btn.setOnClickListener {
             Intent(this@LoginActivity, RegisterActivity::class.java).apply {
                 startActivity(this)
@@ -119,7 +115,6 @@ class LoginActivity : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
         mAuth?.addAuthStateListener(mAuthStateListener!!)
-
     }
 
     override fun onStop() {

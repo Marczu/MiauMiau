@@ -42,7 +42,6 @@ class RegisterActivity : AppCompatActivity() {
         setupFirebaseAuth()
 
         init()
-
     }
 
     private fun init() {
@@ -56,7 +55,6 @@ class RegisterActivity : AppCompatActivity() {
                 register_progressbar.visibility = View.VISIBLE
 
                 firebaseFunctions?.registerNewEmail(email!!, password!!, username!!)
-
             }
         }
     }
@@ -89,7 +87,6 @@ class RegisterActivity : AppCompatActivity() {
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-
                 for (dataSnapshot1 in dataSnapshot.children) {
                     if (dataSnapshot.exists()) {
                         Log.d(TAG, "checkIfUsernameExists FOUND A MATCH " + dataSnapshot.getValue<UserAccount>(UserAccount::class.java)!!.username)
@@ -107,11 +104,9 @@ class RegisterActivity : AppCompatActivity() {
 
                 Toast.makeText(context, "Rejestracja udana, email weryfikujący został wysłany", Toast.LENGTH_LONG).show()
                 mAuth?.signOut()
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-
             }
         })
 
@@ -135,7 +130,6 @@ class RegisterActivity : AppCompatActivity() {
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {
-
                     }
                 })
 
@@ -150,7 +144,6 @@ class RegisterActivity : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
         mAuth?.addAuthStateListener(mAuthStateListener!!)
-
     }
 
     public override fun onStop() {

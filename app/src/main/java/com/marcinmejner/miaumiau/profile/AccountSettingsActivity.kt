@@ -37,7 +37,6 @@ import android.R.attr.data
 class AccountSettingsActivity : AppCompatActivity() {
     private val TAG = "AccountSettingsActivity"
 
-
     //Firebase Auth
     private var mAuth: FirebaseAuth? = null
     private var mAuthStateListener: FirebaseAuth.AuthStateListener? = null
@@ -50,13 +49,11 @@ class AccountSettingsActivity : AppCompatActivity() {
     private val VERIFY_PERMISSIONS_REQUEST = 1
     private val PICK_PHOTO_CODE = 66
 
-
     //vars
     lateinit var fragmentManager: FragmentManager
     lateinit var userAccount: UserAccount
     @Inject
     lateinit var uImageLoader: UniversalImageLoader
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,7 +93,6 @@ class AccountSettingsActivity : AppCompatActivity() {
         this.userAccount = userAccount
         ImageLoader.getInstance().init(uImageLoader.getConfig())
 
-
         uImageLoader.setImage(userAccount.profile_photo, profile_image, "")
 
         username_et.setText(userAccount.username)
@@ -117,7 +113,7 @@ class AccountSettingsActivity : AppCompatActivity() {
     }
 
     /*Taking photo from storage*/
-    fun onPickPhoto() {
+    private fun onPickPhoto() {
         val intent = Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
 
@@ -127,7 +123,6 @@ class AccountSettingsActivity : AppCompatActivity() {
             Log.d(TAG, "onPickPhoto: taking photo from storage")
         }
     }
-
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == PICK_PHOTO_CODE) {
@@ -140,7 +135,6 @@ class AccountSettingsActivity : AppCompatActivity() {
 
                 firebaseFunctions.uploadNewPhoto(getString(R.string.profile_photo),
                         null, 0, null, selectedImage)
-
             }
         }
     }
@@ -154,7 +148,6 @@ class AccountSettingsActivity : AppCompatActivity() {
         } else {
             fragmentManager.popBackStack()
         }
-
     }
 
 
@@ -201,7 +194,6 @@ class AccountSettingsActivity : AppCompatActivity() {
     /*
         ------------------------------FIREBASE -----------------------------------------
     */
-
     private fun setupFirebaseAuth() {
         Log.d(TAG, "setupFirebaseAuth: setting up firebase")
 
@@ -223,8 +215,6 @@ class AccountSettingsActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 /*getting user data from database*/
                 setProfileWidgets(firebaseFunctions.getUserAccount(dataSnapshot))
-
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

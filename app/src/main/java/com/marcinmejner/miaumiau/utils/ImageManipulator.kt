@@ -7,10 +7,8 @@ import java.io.*
 
 class ImageManipulator {
 
-
     companion object {
         private val TAG = "ImageManipulator"
-
 
         fun getBitmap(imgUrl: String): Bitmap? {
 
@@ -29,7 +27,6 @@ class ImageManipulator {
                 } catch (e: IOException) {
                     Log.e(TAG, "getBitmap: FileNotFoundException " + e.message)
                 }
-
             }
             return bitmap
         }
@@ -46,9 +43,5 @@ class ImageManipulator {
             bm.compress(Bitmap.CompressFormat.JPEG, quality, stream)
             return stream.toByteArray()
         }
-
     }
-
-
-
 }

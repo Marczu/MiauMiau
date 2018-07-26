@@ -9,8 +9,4 @@ object Permissions {
     val CAMERA_PERMISSION = arrayOf(Manifest.permission.CAMERA)
     val WRITE_STORAGE_PERMISSION = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     val READ_STORAGE_PERMISSION = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-
-
-
-
 }

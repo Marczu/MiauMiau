@@ -19,7 +19,6 @@ class UniversalImageLoader(val context: Context) {
 
     private val defaultImage = R.drawable.img_holder
 
-
     fun getConfig(): ImageLoaderConfiguration {
 
         val defaultOtions = DisplayImageOptions.Builder()
@@ -58,7 +57,6 @@ class UniversalImageLoader(val context: Context) {
 
             }
         })
-
     }
 }
 

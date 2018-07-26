@@ -39,7 +39,6 @@ class FirebaseFunctions(val context: Context) {
         if (mAuth.currentUser != null) {
             userID = mAuth.currentUser!!.uid
         }
-
     }
 
     /**
@@ -60,12 +59,10 @@ class FirebaseFunctions(val context: Context) {
                         userID = mAuth.currentUser!!.uid
                         Log.d(TAG, "createUserWithEmail:success: userID = $userID")
 
-
                     } else {
                         Toast.makeText(context, "Rejestracja nieudana", Toast.LENGTH_SHORT).show()
                         // If sign in fails, display a chatMessage to the user.
                         Log.w(TAG, "createUserWithEmail:failure", task.exception)
-
                     }
                 })
     }
@@ -81,7 +78,6 @@ class FirebaseFunctions(val context: Context) {
                 Toast.makeText(context, "Nie udało sie wysłać emaila weryfikującego", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     /*Adding new User to database*/
@@ -100,7 +96,6 @@ class FirebaseFunctions(val context: Context) {
         val userAccount = UserAccount()
 
         for (ds in dataSnapshot.children) {
-
 
             /*user node*/
             if (ds.key == context.getString(R.string.dbname_user_account)) {
@@ -126,33 +121,24 @@ class FirebaseFunctions(val context: Context) {
                                     .getValue<UserAccount>(UserAccount::class.java)!!
                                     .user_id
 
-
                     Log.d(TAG, "getUserAccountSettings: getting info from user_account: " + userAccount.toString())
                 } catch (e: NullPointerException) {
                     Log.e(TAG, "NullPointerException: ${e.message} ")
                 }
-
             }
-
-
         }
         return userAccount
     }
 
-
     fun uploadNewPhoto(photoType: String, caption: String?, imageCount: Int?, imgUrl: String?,
                        bm: Bitmap?) {
-
-
         Log.d(TAG, "uploadNewPhoto: Uploading new profile photo")
         Log.d(TAG, "uploadNewPhoto: photo $bm")
-
 
         val user_id = FirebaseAuth.getInstance().currentUser!!.uid
 
         val storageReference = mStorageReference
                 .child(FilePaths.FIREBASE_IMAGE_STORAGE + "/" + user_id + "/profile_photo")
-
 
         val bytes = ImageManipulator.getBytesFromBitmap(bm!!, 100)
 
@@ -166,7 +152,6 @@ class FirebaseFunctions(val context: Context) {
             //insert into user_account_settings node
             setProfilePhoto(firebaseUrl!!.toString())
 
-
         }.addOnFailureListener {
             Log.d(TAG, "onFailure: Photo upload failed")
             Toast.makeText(context, "Nie udało sie wgrać zdjęcia", Toast.LENGTH_SHORT).show()
@@ -179,7 +164,6 @@ class FirebaseFunctions(val context: Context) {
             }
             Log.d(TAG, "onProgress: upload progress: $progress %")
         }
-
     }
 
     private fun setProfilePhoto(url: String) {
@@ -189,8 +173,5 @@ class FirebaseFunctions(val context: Context) {
                 .child(FirebaseAuth.getInstance().currentUser!!.uid)
                 .child(context.getString(R.string.profile_photo))
                 .setValue(url)
-
     }
-
-
 }
