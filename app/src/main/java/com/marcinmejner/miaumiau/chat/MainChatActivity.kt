@@ -240,6 +240,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         if (user == null) {
             val intent = Intent(contex, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 

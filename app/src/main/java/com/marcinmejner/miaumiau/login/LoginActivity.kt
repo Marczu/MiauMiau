@@ -78,10 +78,9 @@ class LoginActivity : AppCompatActivity() {
                                 val user = mAuth?.currentUser
                                 Log.d(TAG, "initLogin: user to: $user")
 
-                                startActivity(Intent(this@LoginActivity, MainChatActivity::class.java))
-                                finish()
-
-
+                                val intent = Intent(this@LoginActivity, MainChatActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(intent)
                             } else {
                                 Log.w(TAG, "signInWithEmail:failure", task.exception)
                                 Toast.makeText(this@LoginActivity, "Nie udało sie zalogować.",
