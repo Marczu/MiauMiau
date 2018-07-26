@@ -34,26 +34,63 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val userId = messageList[position].user_id
         val currentUser = mAuth.currentUser?.uid
-        if(userId == currentUser){
+
+        /*Display chat message for current user*/
+        if (userId == currentUser) {
             uImageLoader.setImage(messageList[position].profile_photo, holder.profileImage, "")
             holder.username.text = messageList[position].username
             holder.dateCreated.text = messageList[position].date_created
             holder.chatMessage.text = messageList[position].chat_message
-        }else{
 
-            holder.profileImage.
+            showCurrentUser(holder)
+        } else {
+
+            uImageLoader.setImage(messageList[position].profile_photo, holder.profileImageLeft, "")
+            holder.usernameLeft.text = messageList[position].username
+            holder.dateCreatedLeft.text = messageList[position].date_created
+            holder.chatMessageLeft.text = messageList[position].chat_message
+
+            showOtherUser(holder)
         }
-
-
-
 
 
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        /*Current user widgets*/
         val profileImage = view.main_chat_image
         val username = view.chat_username
         val dateCreated = view.chat_timestamp
         val chatMessage = view.chat_message
+
+        /*Other User Widgets*/
+        val profileImageLeft = view.main_chat_image_right_user
+        val usernameLeft = view.chat_username_right_user
+        val dateCreatedLeft = view.chat_timestamp_right_user
+        val chatMessageLeft = view.chat_message_right_user
+    }
+
+    private fun showCurrentUser(holder: ViewHolder){
+        holder.profileImage.visibility = View.VISIBLE
+        holder.username.visibility = View.VISIBLE
+        holder.dateCreated.visibility = View.VISIBLE
+        holder.chatMessage.visibility = View.VISIBLE
+
+        holder.profileImageLeft.visibility = View.GONE
+        holder.usernameLeft.visibility = View.GONE
+        holder.dateCreatedLeft.visibility = View.GONE
+        holder.chatMessageLeft.visibility = View.GONE
+    }
+
+    fun showOtherUser(holder: ViewHolder){
+        holder.profileImageLeft.visibility = View.VISIBLE
+        holder.usernameLeft.visibility = View.VISIBLE
+        holder.dateCreatedLeft.visibility = View.VISIBLE
+        holder.chatMessageLeft.visibility = View.VISIBLE
+
+        holder.profileImage.visibility = View.GONE
+        holder.username.visibility = View.GONE
+        holder.dateCreated.visibility = View.GONE
+        holder.chatMessage.visibility = View.GONE
     }
 }

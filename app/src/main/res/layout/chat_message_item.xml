@@ -2,9 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/main_rellayout"
     xmlns:tools="http://schemas.android.com/tools"
     >
 
+    <!--Current User-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,6 +57,67 @@
             android:layout_toRightOf="@id/main_chat_image"
             android:layout_below="@id/username_and_timestamp_relLayout"
             android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
+    <!--Other User-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relLayout_right_user"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/main_chat_image_right_user"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/img_holder"/>
+
+        <RelativeLayout
+            android:id="@+id/username_and_timestamp_relLayout_right_user"
+            android:layout_toLeftOf="@+id/main_chat_image_right_user"
+            android:layout_alignTop="@+id/main_chat_image_right_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/chat_username_right_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/white"
+                tools:text="Kaczusia" />
+
+            <TextView
+                android:id="@+id/chat_timestamp_right_user"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/chat_username_right_user"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp"
+                tools:text="11:37"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:id="@+id/chat_message_right_user"
+            tools:text="test cos tam pisze sobie"
+            android:textColor="@color/message_color"
+            android:layout_toLeftOf="@id/main_chat_image_right_user"
+            android:layout_below="@id/username_and_timestamp_relLayout_right_user"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
