@@ -54,6 +54,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     private val contex = this@MainChatActivity
     lateinit var chatMessages: ArrayList<ChatMessage>
     lateinit var chatAdapter: MainChatRecyclerAdapter
+    var userID: String? = null
 
     var account: UserAccount? = null
 
@@ -72,6 +73,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     }
 
     private fun init() {
+        initRecyclerView()
         initDagger()
         initImageLoader()
         setupFirebaseAuth()
@@ -113,9 +115,10 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         hView.email_nav_drawer.text = account?.user_email
         uImageLoader.setImage(userAccount?.profile_photo, hView.profile_photo_nav_drawer, "")
 
-        initRecyclerView()
+//        initRecyclerView()
 
         recyclerView.adapter = chatAdapter
+
     }
 
     /*Adding single message to databse*/
@@ -131,7 +134,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             message.profile_photo = account?.profile_photo!!
             message.chat_message = chat_message_et.text.toString()
             message.date_created = timeStamp
-            message.user_id = FirebaseAuth.getInstance().currentUser!!.uid
+            message.user_id = userID!!
 
             /* Inserting into message Node */
             if (message.chat_message != "") {
@@ -228,6 +231,8 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         mFirebaseDatabase = FirebaseDatabase.getInstance()
         myRef = mFirebaseDatabase?.reference
 
+        userID = mAuth?.currentUser!!.uid
+
         mAuthStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val user = firebaseAuth.currentUser
             checkCurrentUser(user)
@@ -264,6 +269,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
                             chatMessages.add(post!!)
                             recycler_view.scrollToPosition(chatMessages.size - 1)
+                            chatAdapter.notifyDataSetChanged()
                         }
                     }
 

@@ -16,10 +16,12 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
 
     var uImageLoader: UniversalImageLoader
     private val mAuth: FirebaseAuth
+    var currentUser: String?
 
     init {
         uImageLoader = UniversalImageLoader(context)
         mAuth = FirebaseAuth.getInstance()
+        currentUser = mAuth.currentUser?.uid
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,26 +34,29 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+
         val userId = messageList[position].user_id
-        val currentUser = mAuth.currentUser?.uid
+        currentUser = mAuth.currentUser?.uid
 
         /*Display chat message for current user*/
         if (userId == currentUser) {
+            showCurrentUser(holder)
             uImageLoader.setImage(messageList[position].profile_photo, holder.profileImage, "")
             holder.username.text = messageList[position].username
             holder.dateCreated.text = messageList[position].date_created
             holder.chatMessage.text = messageList[position].chat_message
 
-            showCurrentUser(holder)
-        } else {
 
+        } else {
+            showOtherUser(holder)
             uImageLoader.setImage(messageList[position].profile_photo, holder.profileImageLeft, "")
             holder.usernameLeft.text = messageList[position].username
             holder.dateCreatedLeft.text = messageList[position].date_created
             holder.chatMessageLeft.text = messageList[position].chat_message
-
-            showOtherUser(holder)
         }
+
+
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -90,5 +95,17 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
         holder.username.visibility = View.GONE
         holder.dateCreated.visibility = View.GONE
         holder.chatMessage.visibility = View.GONE
+    }
+
+    private fun hideAll(holder: ViewHolder){
+        holder.profileImage.visibility = View.GONE
+        holder.username.visibility = View.GONE
+        holder.dateCreated.visibility = View.GONE
+        holder.chatMessage.visibility = View.GONE
+
+        holder.profileImageLeft.visibility = View.GONE
+        holder.usernameLeft.visibility = View.GONE
+        holder.dateCreatedLeft.visibility = View.GONE
+        holder.chatMessageLeft.visibility = View.GONE
     }
 }
