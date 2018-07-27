@@ -13,7 +13,7 @@ object DateManipulations {
     }
 
     fun getMinutesAndHours(): String {
-        val sdf = SimpleDateFormat("HH:mm", Locale.ENGLISH)
+        val sdf = SimpleDateFormat("MM.dd, HH:mm", Locale.ENGLISH)
         sdf.timeZone = TimeZone.getTimeZone("Europe/Warsaw")
 
         return sdf.format(Date())
