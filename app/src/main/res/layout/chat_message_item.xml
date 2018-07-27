@@ -37,7 +37,7 @@
 
             <TextView
                 android:id="@+id/chat_timestamp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@id/chat_username"
                 android:layout_centerVertical="true"
                 android:textColor="@color/colorPrimary"
@@ -49,16 +49,16 @@
         </RelativeLayout>
 
 
-
         <TextView
             android:id="@+id/chat_message"
-            tools:text="test cos tam pisze sobie"
-            android:textColor="@color/message_color"
-            android:layout_toRightOf="@id/main_chat_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/username_and_timestamp_relLayout"
             android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_marginRight="40dp"
+            android:layout_toRightOf="@id/main_chat_image"
+            android:textColor="@color/message_color"
+            tools:text="test cos tam pisze sobie" />
     </RelativeLayout>
 
 
@@ -82,14 +82,15 @@
             android:id="@+id/username_and_timestamp_relLayout_right_user"
             android:layout_toLeftOf="@+id/main_chat_image_right_user"
             android:layout_alignTop="@+id/main_chat_image_right_user"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/chat_username_right_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_alignParentRight="true"
+
                 android:layout_marginRight="10dp"
                 android:textColor="@color/white"
                 tools:text="Kaczusia" />
@@ -97,9 +98,9 @@
             <TextView
                 android:id="@+id/chat_timestamp_right_user"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@+id/chat_username_right_user"
+                android:layout_centerVertical="true"
                 android:textColor="@color/colorPrimary"
                 android:textSize="10sp"
                 tools:text="11:37"
@@ -109,17 +110,19 @@
         </RelativeLayout>
 
 
-
         <TextView
             android:id="@+id/chat_message_right_user"
-            tools:text="test cos tam pisze sobie"
-            android:textColor="@color/message_color"
-            android:layout_toLeftOf="@id/main_chat_image_right_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/username_and_timestamp_relLayout_right_user"
-            android:layout_marginLeft="10dp"
+
+
+            android:layout_marginLeft="40dp"
             android:layout_marginRight="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_toLeftOf="@+id/main_chat_image_right_user"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/message_color"
+            tools:text="test cos tam pisdddd" />
     </RelativeLayout>
 
 
