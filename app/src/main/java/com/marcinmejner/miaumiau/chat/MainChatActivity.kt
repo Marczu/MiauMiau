@@ -3,6 +3,7 @@ package com.marcinmejner.miaumiau.chat
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.v4.app.FragmentActivity
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -34,6 +35,9 @@ import kotlinx.android.synthetic.main.snippet_top_profilebar.*
 import org.w3c.dom.Comment
 import java.util.HashMap
 import javax.inject.Inject
+import com.google.firebase.database.DataSnapshot
+
+
 
 
 class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -115,8 +119,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         hView.username_nav_drawer.text = account?.username
         hView.email_nav_drawer.text = account?.user_email
         uImageLoader.setImage(userAccount?.profile_photo, hView.profile_photo_nav_drawer, "")
-
-//        initRecyclerView()
     }
 
     /*Adding single message to databse*/
@@ -139,28 +141,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
                 myRef?.child(getString(R.string.dbname_messages))
                         ?.child(messageId)
-                        ?.child(getString(R.string.dbname_msg_chatmessage))
-                        ?.setValue(message.chat_message)
-
-                myRef?.child(getString(R.string.dbname_messages))
-                        ?.child(messageId)
-                        ?.child(getString(R.string.dbname_msg_username))
-                        ?.setValue(message.username)
-
-                myRef?.child(getString(R.string.dbname_messages))
-                        ?.child(messageId)
-                        ?.child(getString(R.string.dbname_msg_profile_photo))
-                        ?.setValue(message.profile_photo)
-
-                myRef?.child(getString(R.string.dbname_messages))
-                        ?.child(messageId)
-                        ?.child(getString(R.string.dbname_msg_date_created))
-                        ?.setValue(message.date_created)
-
-                myRef?.child(getString(R.string.dbname_messages))
-                        ?.child(messageId)
-                        ?.child(getString(R.string.dbname_msg_user_id))
-                        ?.setValue(message.user_id)
+                        ?.setValue(message)
 
                 chat_message_et.setText("")
 
@@ -255,9 +236,11 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         /*Getting new data from message node*/
         myRef?.child(contex.getString(R.string.dbname_messages))
-                ?.addValueEventListener(object : ValueEventListener {
+                ?.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        chatMessages.clear()
+                        if(chatMessages.size > 0){
+                            chatMessages.clear()
+                        }
 
                         Log.d(TAG, "onDataChange: ilość: ${dataSnapshot.getChildrenCount()}")
                         for (singleSnapshot in dataSnapshot.children) {
@@ -268,9 +251,38 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                             Log.d(TAG, "onDataChange: ${post?.user_id}")
 
                             chatMessages.add(post!!)
-                            recycler_view.scrollToPosition(chatMessages.size - 1)
-                            chatAdapter.notifyDataSetChanged()
                         }
+                        recycler_view.scrollToPosition(chatMessages.size - 1)
+                        chatAdapter.notifyDataSetChanged()
+                    }
+
+                    override fun onCancelled(databaseError: DatabaseError) {
+                        Log.d(TAG, "onCancelled: querry canceled")
+                    }
+                })
+
+        /*Getting new data from new single message node*/
+        myRef?.child(contex.getString(R.string.dbname_messages))
+                ?.addChildEventListener(object : ChildEventListener {
+                    override fun onChildMoved(p0: DataSnapshot?, p1: String?) {
+                    }
+
+                    override fun onChildChanged(p0: DataSnapshot?, p1: String?) {}
+
+                    override fun onChildRemoved(p0: DataSnapshot?) {
+                        recycler_view.scrollToPosition(chatMessages.size - 1)
+                        chatAdapter.notifyDataSetChanged()
+                    }
+
+                    override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
+                        val newMessage = dataSnapshot.getValue(ChatMessage::class.java)
+                        Log.d(TAG, "onChildAdded: ${newMessage?.user_id}")
+                        Log.d(TAG, "onChildAdded: ${newMessage?.chat_message}")
+                        Log.d(TAG, "onChildAdded: ${newMessage?.date_created}")
+                        Log.d(TAG, "onChildAdded: ${newMessage?.username}")
+                        chatMessages.add(newMessage!!)
+                        recycler_view.scrollToPosition(chatMessages.size - 1)
+                        chatAdapter.notifyDataSetChanged()
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {
