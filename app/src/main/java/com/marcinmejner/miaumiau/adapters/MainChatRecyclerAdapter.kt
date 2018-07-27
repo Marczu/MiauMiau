@@ -48,7 +48,8 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
             holder.chatMessage.text = messageList[position].chat_message
 
 
-        } else {
+        }
+        if(userId != currentUser){
             showOtherUser(holder)
             uImageLoader.setImage(messageList[position].profile_photo, holder.profileImageLeft, "")
             holder.usernameLeft.text = messageList[position].username

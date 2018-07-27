@@ -89,6 +89,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         recyclerView.layoutManager = layoutManager
 
         chatAdapter = MainChatRecyclerAdapter(chatMessages, this)
+        recyclerView.adapter = chatAdapter
     }
 
     private fun initImageLoader() {
@@ -116,9 +117,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         uImageLoader.setImage(userAccount?.profile_photo, hView.profile_photo_nav_drawer, "")
 
 //        initRecyclerView()
-
-        recyclerView.adapter = chatAdapter
-
     }
 
     /*Adding single message to databse*/
@@ -165,7 +163,9 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                         ?.setValue(message.user_id)
 
                 chat_message_et.setText("")
+
             }
+
         }
     }
 
