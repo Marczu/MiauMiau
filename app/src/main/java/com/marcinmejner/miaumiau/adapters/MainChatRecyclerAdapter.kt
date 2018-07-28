@@ -40,24 +40,20 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
         currentUser = mAuth.currentUser?.uid
 
         /*Display chat message for current user*/
-        if (userId == currentUser) {
+        if (userId != currentUser) {
             showCurrentUser(holder)
             uImageLoader.setImage(messageList[position].profile_photo, holder.profileImage, "")
             holder.username.text = messageList[position].username
             holder.dateCreated.text = messageList[position].date_created
             holder.chatMessage.text = messageList[position].chat_message
-
-
         }
-        if(userId != currentUser){
+        if(userId == currentUser){
             showOtherUser(holder)
             uImageLoader.setImage(messageList[position].profile_photo, holder.profileImageLeft, "")
             holder.usernameLeft.text = messageList[position].username
             holder.dateCreatedLeft.text = messageList[position].date_created
             holder.chatMessageLeft.text = messageList[position].chat_message
         }
-
-
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -96,17 +92,5 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
         holder.username.visibility = View.GONE
         holder.dateCreated.visibility = View.GONE
         holder.chatMessage.visibility = View.GONE
-    }
-
-    private fun hideAll(holder: ViewHolder){
-        holder.profileImage.visibility = View.GONE
-        holder.username.visibility = View.GONE
-        holder.dateCreated.visibility = View.GONE
-        holder.chatMessage.visibility = View.GONE
-
-        holder.profileImageLeft.visibility = View.GONE
-        holder.usernameLeft.visibility = View.GONE
-        holder.dateCreatedLeft.visibility = View.GONE
-        holder.chatMessageLeft.visibility = View.GONE
     }
 }

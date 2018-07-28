@@ -136,7 +136,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             message.date_created = timeStamp
             message.user_id = userID!!
 
-            /* Inserting into message Node */
+            /* Inserting data into message Node */
             if (message.chat_message != "") {
 
                 myRef?.child(getString(R.string.dbname_messages))
@@ -144,9 +144,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                         ?.setValue(message)
 
                 chat_message_et.setText("")
-
             }
-
         }
     }
 
