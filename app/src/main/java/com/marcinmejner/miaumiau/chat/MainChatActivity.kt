@@ -38,8 +38,6 @@ import javax.inject.Inject
 import com.google.firebase.database.DataSnapshot
 
 
-
-
 class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private val TAG = "MainChatActivity"
 
@@ -236,20 +234,21 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         myRef?.child(contex.getString(R.string.dbname_messages))
                 ?.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        if(chatMessages.size > 0){
+                        if (chatMessages.size > 0) {
                             chatMessages.clear()
                         }
 
-                        Log.d(TAG, "onDataChange: ilość: ${dataSnapshot.getChildrenCount()}")
-                        for (singleSnapshot in dataSnapshot.children) {
-                            var post = singleSnapshot.getValue(ChatMessage::class.java)
+                        dataSnapshot.children.forEach {
+                            var post = it.getValue(ChatMessage::class.java)
                             var message = post?.chat_message
+
                             Log.d(TAG, "onDataChange: $message")
                             Log.d(TAG, "onDataChange: ${post?.date_created}")
                             Log.d(TAG, "onDataChange: ${post?.user_id}")
 
                             chatMessages.add(post!!)
                         }
+
                         recycler_view.scrollToPosition(chatMessages.size - 1)
                         chatAdapter.notifyDataSetChanged()
                     }
@@ -288,7 +287,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                     }
                 })
     }
-
 
     public override fun onStart() {
         super.onStart()
