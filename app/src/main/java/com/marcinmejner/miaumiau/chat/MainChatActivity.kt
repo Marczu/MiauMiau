@@ -197,8 +197,8 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         Log.d(TAG, "checkCurrentUser: checking if user is logged in")
         if (user == null) {
             val intent = Intent(contex, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-            finish()
         }
     }
 
@@ -208,7 +208,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         mFirebaseDatabase = FirebaseDatabase.getInstance()
         myRef = mFirebaseDatabase?.reference
 
-        userID = mAuth?.currentUser!!.uid
+        userID = mAuth?.currentUser?.uid
 
         mAuthStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val user = firebaseAuth.currentUser
