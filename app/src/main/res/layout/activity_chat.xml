@@ -25,7 +25,12 @@
 
         </RelativeLayout>
 
+
+
         <!--Main Chat-->
+
+
+
         <RelativeLayout
             android:id="@+id/relLayout_main_chat_content"
             android:background="@drawable/dark_border_top_chat"
@@ -47,6 +52,14 @@
 
         </RelativeLayout>
 
+        <FrameLayout
+            android:id="@+id/container"
+            android:visibility="visible"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+        </FrameLayout>
 
         <!--Send Message-->
         <RelativeLayout

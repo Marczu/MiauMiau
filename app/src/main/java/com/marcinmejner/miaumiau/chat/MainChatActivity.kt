@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
+import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -36,6 +37,7 @@ import org.w3c.dom.Comment
 import java.util.HashMap
 import javax.inject.Inject
 import com.google.firebase.database.DataSnapshot
+import com.marcinmejner.miaumiau.utils.RemoveMessageFragmentDialog
 
 
 class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -72,6 +74,8 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         init()
 
         navigateToEditProfile()
+
+
     }
 
     private fun init() {
@@ -90,7 +94,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         layoutManager.stackFromEnd = true
         recyclerView.layoutManager = layoutManager
 
-        chatAdapter = MainChatRecyclerAdapter(chatMessages, this)
+        chatAdapter = MainChatRecyclerAdapter(chatMessages, this, this)
         recyclerView.adapter = chatAdapter
     }
 
@@ -191,6 +195,22 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         return true
     }
 
+    fun showRemoveMessageDialog(messageId: String) {
+        container.visibility = View.VISIBLE
+        Log.d(TAG, "showRemoveMessageDialog: indige fragment dialog")
+
+        val bundle = Bundle()
+        bundle.putString("messageId", messageId);
+
+        val removeMessageFragmentDialog = RemoveMessageFragmentDialog()
+        removeMessageFragmentDialog.arguments = bundle
+        val fm = supportFragmentManager
+        val transaction = fm.beginTransaction()
+        transaction.add(R.id.container, removeMessageFragmentDialog, "removeDialog")
+                .addToBackStack("removeDialog")
+                .commit()
+    }
+
     /*
         ------------------------------FIREBASE -----------------------------------------
     */
@@ -289,9 +309,6 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                         Log.d(TAG, "onCancelled: querry canceled")
                     }
                 })
-
-
-
 
 
     }

@@ -1,5 +1,6 @@
 package com.marcinmejner.miaumiau.adapters
 
+import android.app.FragmentManager
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -13,11 +14,13 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.marcinmejner.miaumiau.R
+import com.marcinmejner.miaumiau.chat.MainChatActivity
 import com.marcinmejner.miaumiau.models.ChatMessage
+import com.marcinmejner.miaumiau.utils.RemoveMessageFragmentDialog
 import com.marcinmejner.miaumiau.utils.UniversalImageLoader
 import kotlinx.android.synthetic.main.chat_message_item.view.*
 
-class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val context: Context) : RecyclerView.Adapter<MainChatRecyclerAdapter.ViewHolder>() {
+class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val context: Context, val mainChat: MainChatActivity) : RecyclerView.Adapter<MainChatRecyclerAdapter.ViewHolder>() {
     private val TAG = "MainChatRecyclerAdapter"
 
     var uImageLoader: UniversalImageLoader
@@ -106,24 +109,9 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
     fun deleteMessage(holder: ViewHolder, position: Int) {
 
         holder.deleteMessage.setOnLongClickListener {
-                Log.d(TAG, "deleteMessage: clicked")
-                Log.d(TAG, "deleteMessage: ${messageList[position].message_id}")
-                val query = FirebaseDatabase.getInstance().reference
-                        .child(context.getString(R.string.dbname_messages))
-                        .orderByKey()
-                        .equalTo(messageList[position].message_id)
 
-                query.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onCancelled(p0: DatabaseError?) {
-                    }
+           mainChat.showRemoveMessageDialog(messageList[position].message_id)
 
-                    override fun onDataChange(p0: DataSnapshot?) {
-                        p0?.children?.forEach { it.ref.removeValue() }
-                        Toast.makeText(context, "Wiadomość została usunięta", Toast.LENGTH_LONG)
-                                .show()
-                    }
-
-                })
             return@setOnLongClickListener true
         }
     }
