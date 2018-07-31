@@ -2,10 +2,15 @@ package com.marcinmejner.miaumiau.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.marcinmejner.miaumiau.R
 import com.marcinmejner.miaumiau.models.ChatMessage
 import com.marcinmejner.miaumiau.utils.UniversalImageLoader
@@ -35,9 +40,9 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-
         val userId = messageList[position].user_id
         currentUser = mAuth.currentUser?.uid
+        deleteMessage(holder, position)
 
         /*Display chat message for current user*/
         if (userId != currentUser) {
@@ -47,13 +52,15 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
             holder.dateCreated.text = messageList[position].date_created
             holder.chatMessage.text = messageList[position].chat_message
         }
-        if(userId == currentUser){
+        if (userId == currentUser) {
             showOtherUser(holder)
             uImageLoader.setImage(messageList[position].profile_photo, holder.profileImageLeft, "")
             holder.usernameLeft.text = messageList[position].username
             holder.dateCreatedLeft.text = messageList[position].date_created
             holder.chatMessageLeft.text = messageList[position].chat_message
         }
+
+
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -62,6 +69,7 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
         val username = view.chat_username
         val dateCreated = view.chat_timestamp
         val chatMessage = view.chat_message
+        val deleteMessage = view.relLayout_right_user
 
         /*Other User Widgets*/
         val profileImageLeft = view.main_chat_image_right_user
@@ -70,7 +78,7 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
         val chatMessageLeft = view.chat_message_right_user
     }
 
-    private fun showCurrentUser(holder: ViewHolder){
+    private fun showCurrentUser(holder: ViewHolder) {
         holder.profileImage.visibility = View.VISIBLE
         holder.username.visibility = View.VISIBLE
         holder.dateCreated.visibility = View.VISIBLE
@@ -82,7 +90,7 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
         holder.chatMessageLeft.visibility = View.GONE
     }
 
-    private fun showOtherUser(holder: ViewHolder){
+    private fun showOtherUser(holder: ViewHolder) {
         holder.profileImageLeft.visibility = View.VISIBLE
         holder.usernameLeft.visibility = View.VISIBLE
         holder.dateCreatedLeft.visibility = View.VISIBLE
@@ -92,5 +100,29 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
         holder.username.visibility = View.GONE
         holder.dateCreated.visibility = View.GONE
         holder.chatMessage.visibility = View.GONE
+    }
+
+    fun deleteMessage(holder: ViewHolder, position: Int) {
+        holder.deleteMessage.setOnClickListener {
+            Log.d(TAG, "deleteMessage: clicked")
+            Log.d(TAG, "deleteMessage: ${messageList[position].message_id}")
+            val query = FirebaseDatabase.getInstance().reference
+                    .child(context.getString(R.string.dbname_messages))
+                    .orderByKey()
+                    .equalTo(messageList[position].message_id)
+
+
+            query.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError?) {
+
+                }
+
+                override fun onDataChange(p0: DataSnapshot?) {
+                    p0?.children?.forEach { it.ref.removeValue() }
+                }
+            })
+
+        }
+
     }
 }

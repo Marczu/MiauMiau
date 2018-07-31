@@ -133,6 +133,7 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             message.chat_message = chat_message_et.text.toString()
             message.date_created = timeStamp
             message.user_id = userID!!
+            message.message_id = messageId!!
 
             /* Inserting data into message Node */
             if (message.chat_message != "") {
@@ -267,6 +268,8 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                     override fun onChildChanged(p0: DataSnapshot?, p1: String?) {}
 
                     override fun onChildRemoved(p0: DataSnapshot?) {
+                        val removeMessage = p0?.getValue(ChatMessage::class.java)
+                        chatMessages.remove(removeMessage)
                         recycler_view.scrollToPosition(chatMessages.size - 1)
                         chatAdapter.notifyDataSetChanged()
                     }
@@ -286,6 +289,11 @@ class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                         Log.d(TAG, "onCancelled: querry canceled")
                     }
                 })
+
+
+
+
+
     }
 
     public override fun onStart() {

@@ -8,8 +8,8 @@ data class ChatMessage(
         var user_id: String = "",
         var profile_photo: String = "",
         var date_created: String = "",
-        var chat_message: String = ""
-//        var message_id: String = ""
+        var chat_message: String = "",
+        var message_id: String = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),

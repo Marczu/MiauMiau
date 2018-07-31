@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
 
-    <!--Current User-->
+    <!--Other User-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,8 +63,9 @@
     </RelativeLayout>
 
 
-    <!--Other User-->
+    <!--Current User-->
     <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relLayout_right_user"
