@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -42,6 +43,7 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
 
         val userId = messageList[position].user_id
         currentUser = mAuth.currentUser?.uid
+
         deleteMessage(holder, position)
 
         /*Display chat message for current user*/
@@ -59,8 +61,6 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
             holder.dateCreatedLeft.text = messageList[position].date_created
             holder.chatMessageLeft.text = messageList[position].chat_message
         }
-
-
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -102,27 +102,29 @@ class MainChatRecyclerAdapter(val messageList: ArrayList<ChatMessage>, val conte
         holder.chatMessage.visibility = View.GONE
     }
 
+    /*Delete single message from databse*/
     fun deleteMessage(holder: ViewHolder, position: Int) {
-        holder.deleteMessage.setOnClickListener {
-            Log.d(TAG, "deleteMessage: clicked")
-            Log.d(TAG, "deleteMessage: ${messageList[position].message_id}")
-            val query = FirebaseDatabase.getInstance().reference
-                    .child(context.getString(R.string.dbname_messages))
-                    .orderByKey()
-                    .equalTo(messageList[position].message_id)
 
+        holder.deleteMessage.setOnLongClickListener {
+                Log.d(TAG, "deleteMessage: clicked")
+                Log.d(TAG, "deleteMessage: ${messageList[position].message_id}")
+                val query = FirebaseDatabase.getInstance().reference
+                        .child(context.getString(R.string.dbname_messages))
+                        .orderByKey()
+                        .equalTo(messageList[position].message_id)
 
-            query.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onCancelled(p0: DatabaseError?) {
+                query.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onCancelled(p0: DatabaseError?) {
+                    }
 
-                }
+                    override fun onDataChange(p0: DataSnapshot?) {
+                        p0?.children?.forEach { it.ref.removeValue() }
+                        Toast.makeText(context, "Wiadomość została usunięta", Toast.LENGTH_LONG)
+                                .show()
+                    }
 
-                override fun onDataChange(p0: DataSnapshot?) {
-                    p0?.children?.forEach { it.ref.removeValue() }
-                }
-            })
-
+                })
+            return@setOnLongClickListener true
         }
-
     }
 }
