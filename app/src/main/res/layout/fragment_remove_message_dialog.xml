@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="50dp"
+    android:background="@color/chat_dark2"
+    tools:context=".utils.RemoveMessageFragmentDialog">
+
+    <RelativeLayout
+        android:id="@+id/relLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/ask_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:text="Usunąc wiadomość?"
+            android:layout_marginBottom="15dp"/>
+
+        <Button
+            android:id="@+id/yes_btn"
+            android:background="@drawable/white_rounded_button"
+            android:layout_below="@+id/ask_tv"
+            android:text="TAK"
+            android:layout_marginLeft="15dp"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/no_btn"
+            android:background="@drawable/white_rounded_button"
+            android:layout_below="@+id/ask_tv"
+            android:layout_marginRight="15dp"
+            android:text="Nie"
+            android:layout_alignParentRight="true"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+
+</FrameLayout>
