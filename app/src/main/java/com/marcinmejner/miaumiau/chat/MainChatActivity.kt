@@ -3,11 +3,9 @@ package com.marcinmejner.miaumiau.chat
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.v4.app.FragmentActivity
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -18,8 +16,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.marcinmejner.miaumiau.R
-import com.marcinmejner.miaumiau.R.id.drawer_layout1
-import com.marcinmejner.miaumiau.R.id.nav_view1
 import com.marcinmejner.miaumiau.adapters.MainChatRecyclerAdapter
 import com.marcinmejner.miaumiau.base.BaseActivity
 import com.marcinmejner.miaumiau.login.LoginActivity
@@ -33,11 +29,8 @@ import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.nav_header_main_chat.view.*
 import kotlinx.android.synthetic.main.snippet_top_profilebar.*
-import org.w3c.dom.Comment
-import java.util.HashMap
 import javax.inject.Inject
 import com.google.firebase.database.DataSnapshot
-import com.marcinmejner.miaumiau.utils.RemoveMessageFragmentDialog
 
 
 class MainChatActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {

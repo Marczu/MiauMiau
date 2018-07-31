@@ -1,22 +1,14 @@
 package com.marcinmejner.miaumiau.adapters
 
-import android.app.FragmentManager
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.marcinmejner.miaumiau.R
 import com.marcinmejner.miaumiau.chat.MainChatActivity
 import com.marcinmejner.miaumiau.models.ChatMessage
-import com.marcinmejner.miaumiau.utils.RemoveMessageFragmentDialog
 import com.marcinmejner.miaumiau.utils.UniversalImageLoader
 import kotlinx.android.synthetic.main.chat_message_item.view.*
 

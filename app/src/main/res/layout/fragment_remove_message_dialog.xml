@@ -6,7 +6,7 @@
     android:padding="50dp"
     android:background="@color/chat_dark2"
     android:layout_centerVertical="true"
-    tools:context=".utils.RemoveMessageFragmentDialog">
+    tools:context=".chat.RemoveMessageFragmentDialog">
 
     <RelativeLayout
         android:id="@+id/relLayout1"

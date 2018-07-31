@@ -1,4 +1,4 @@
-package com.marcinmejner.miaumiau.utils
+package com.marcinmejner.miaumiau.chat
 
 
 import android.os.Bundle
@@ -33,9 +33,6 @@ class RemoveMessageFragmentDialog : Fragment() {
             Log.d(TAG, "onCreateView: messageId : $messageId")
             removeMessageDialog(view)
         }
-
-
-
 
         return view
     }
